@@ -11,6 +11,8 @@ final class Router {
 
 	var assembly: Assembly
 
+	var startViewController: UIViewController?
+
 	init(assembly: Assembly) {
 		self.assembly = assembly
 	}
@@ -19,9 +21,24 @@ final class Router {
 
 // MARK: - RouterInput
 extension Router: RouterInput {
+	func set(loaderIsHidden: Bool) {
+		assembly.set(loaderIsHidden: loaderIsHidden)
+	}
+
+
+	func addWeatherScreen() {
+		guard let pageVC = startViewController as? UIPageViewController else { return }
+		var array:[UIViewController] = pageVC.viewControllers ?? []
+			array.append(assembly.makeWeatherScreen())
+		DispatchQueue.main.async {
+			pageVC.setViewControllers(array, direction: .forward, animated: true, completion: nil)
+		}
+	}
+
 
 	func showStartScreen() {
 		let viewController = assembly.makeStartScreen()
+		self.startViewController = viewController
 		let navigationController = UINavigationController(rootViewController: viewController)
 		navigationController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
 		navigationController.navigationBar.shadowImage = UIImage()
@@ -41,4 +58,6 @@ extension Router: RouterInput {
 		alert.addAction(cancel)
 		assembly.window?.rootViewController?.present(alert, animated: true)
 	}
+
+
 }

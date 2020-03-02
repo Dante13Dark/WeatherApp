@@ -12,4 +12,10 @@ protocol RouterInput {
 
 	/// Показать сообщение об ошибке пришедшее с сервера.
 	func showErrorResponse(_ error: RequestServiceError)
+
+	/// Добавить экран погоды
+	func addWeatherScreen()
+
+	/// Показать лоадер
+	func set(loaderIsHidden: Bool)
 }

@@ -7,8 +7,11 @@
 
 import UIKit
 import Foundation
+import CoreLocation
 
 final class Assembly: NSObject {
+
+	let loader = Loader()
 
 	var window: UIWindow?
 
@@ -16,12 +19,19 @@ final class Assembly: NSObject {
 		return coordinator
 	}
 
+	let locationService = LocationService()
+
 	// Объект координатора.
 	private var coordinator: FlowCoordinator {
 		if let coordinator = coordinatorReference { return coordinator }
-		let requestService = RequestService()
 		let router = Router(assembly: self)
-		let interactor = Interactor(requestService: requestService)
+
+		let requestService = RequestService()
+		let dataService = DataService()
+		
+		let interactor = Interactor(requestService: requestService,
+									dataService: dataService)
+		locationService.output = interactor
 		let flowCoordinator = FlowCoordinator(interactor: interactor, router: router)
 		interactor.output = flowCoordinator
 
@@ -42,9 +52,29 @@ final class Assembly: NSObject {
 		let presenter = StartPresenter(output: coordinator)
 		coordinator.startPresenter = presenter
 
-		let viewController = PageViewController(output: presenter)
+		let viewController = StartViewController(output: presenter)
 		presenter.view = viewController
 
 		return viewController
 	}
+
+	func makeWeatherScreen() -> UIViewController {
+		let presenter = WeatherPresenter(output: coordinator)
+		coordinator.weatherPresenter = presenter
+
+		let viewController = WeatherViewController(output: presenter)
+		presenter.view = viewController
+
+		return viewController
+	}
+
+	func set(loaderIsHidden: Bool) {
+		loader.set(loaderIsHidden: loaderIsHidden)
+	}
 }
+
+enum Model {
+	case location(Coord)
+	case city(City)
+}
+

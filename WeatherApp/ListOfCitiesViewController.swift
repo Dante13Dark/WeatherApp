@@ -33,11 +33,6 @@ final class ListOfCitiesViewController: UIViewController {
 		}
 		savedCities = filteredCities
 
-		if let data = try? PropertyListEncoder().encode(savedCities) {
-			UserDefaults.standard.set(data, forKey:"SavedCities")
-		} else {
-			print("NOT ENCODE")
-		}
 		tableView.reloadData()
 	}
 

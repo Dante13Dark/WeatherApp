@@ -7,8 +7,6 @@
 
 /// Протокол для управления событиями
 protocol InteractorInput {
-	// Запросить информацию о погоде по id города
-	func requestInfo(id: Int)
-	// Запросить информацию о погоде по текущей геопозицие
-	func requestInfo(coord: Coord)
+	// Запросить информацию о погоде
+	func requestInfo(model: Model)
 }

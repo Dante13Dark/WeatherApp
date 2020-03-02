@@ -11,7 +11,7 @@ final class StartPresenter {
 	// MARK: - Properties
 
 	/// View экрана
-	weak var view: ViewInput?
+	weak var view: StartViewInput?
 
 	// Обработчик событий и запросов презентера стартового.
 	private var output: StartPresenterOutput
@@ -21,35 +21,16 @@ final class StartPresenter {
 	}
 }
 
+// MARK: - StartViewOutput
+extension StartPresenter: StartViewOutput {
+	func didLoad() {
+		output.showLoader()
+	}
+}
+
 // MARK: - StartPresenterInput
 extension StartPresenter: StartPresenterInput {
-	func present(_ model:PresentationModel<CurrentWeather>) {
-		switch model {
-		case .loader:
-			print("Loader")
-			view?.set(loaderIsHidden: false)
-		case .responseModel(let model):
-			print("model = \(model)")
-			view?.set(loaderIsHidden: true)
-			set(model: model)
-		}
-	}
-
-	// здесь фабрику данные распарсить
-	private func set(model: CurrentWeather) {
-		if let title = model.name {
-			view?.set(title: title)
-			view?.set(model: model)
-		}
+	func set(city: String) {
 	}
 }
 
-extension StartPresenter: ViewOutput {
-	func didLoad(coord: Coord) {
-		output.requestDataForFirstScreen(coord: coord)
-	}
-
-	func didLoad(id: Int) {
-		output.requestData(for: id)
-	}
-}

@@ -8,8 +8,5 @@
 /// Протокол обработки событий и запросов презентера стартового экрана.
 protocol StartPresenterOutput {
 	/// Запрашивается информация для экрана по id города.
-	func requestData(for id: Int)
-
-	/// Запрашивается информация для экрана с геопозицией
-	func requestDataForFirstScreen(coord: Coord)
+	func showLoader()
 }

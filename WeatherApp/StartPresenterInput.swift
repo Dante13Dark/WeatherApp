@@ -7,6 +7,6 @@
 
 /// Протокол управления презентером стартового экрана.
 protocol StartPresenterInput: AnyObject {
-	/// Показать информацию.
-	func present(_ model: PresentationModel<CurrentWeather>)
+	// Установить название города
+	func set(city: String)
 }

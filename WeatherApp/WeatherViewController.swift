@@ -13,9 +13,9 @@ class WeatherViewController: UIViewController {
 
 	var currentWeather = CurrentWeatherView()
 
-	var output: PageDelegate
+	var output: WeatherViewOutput
 	
-	init(output: PageDelegate) {
+	init(output: WeatherViewOutput) {
 		self.output = output
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -27,13 +27,14 @@ class WeatherViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		view.backgroundColor = .green
 		view.addSubview(currentWeather)
 		setupLayout()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		output.currentVC(viewController: self)
-		output.didLoad(id: id)
+//		output.currentVC(viewController: self)
+//		output.didLoad(id: id)
 	}
 
 	// MARK: - Private
@@ -49,19 +50,14 @@ class WeatherViewController: UIViewController {
 	}
 }
 
-extension WeatherViewController {
-
-	func set(model: CurrentWeather) {
-		print("Model = \(model)")
-		// просто посмотреть
+extension WeatherViewController: WeatherViewInput {
+	func set(city: String, temp: String, icon: String) {
 		DispatchQueue.main.async {
-			if let temp = model.main?.temp {
-				self.currentWeather.temperature.text = String(Int(temp)) + "°C"
-			}
-
-			if let icon = model.weather?.first?.icon {
-				self.currentWeather.icon.image = UIImage.init(named: icon)
-			}
+			super.navigationItem.title = city
+			self.currentWeather.temperature.text = temp
+			self.currentWeather.icon.image = UIImage(named: icon)
 		}
 	}
 }
+
+extension WeatherViewController: WeatherPresenterOutput {}

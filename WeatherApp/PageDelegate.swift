@@ -8,6 +8,4 @@
 protocol PageDelegate: AnyObject {
 	// Возвращает текущий VC
 	func currentVC(viewController: WeatherViewController)
-	// Вью загружена с id
-	func didLoad(id: Int?)
 }

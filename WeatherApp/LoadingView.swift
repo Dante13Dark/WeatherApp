@@ -8,14 +8,12 @@
 import Foundation
 import UIKit
 
-public class Indicator {
+final class Loader {
 
-	public static let sharedInstance = Indicator()
 	var blurImg = UIImageView()
 	var indicator = UIActivityIndicatorView()
 
-	private init()
-	{
+	init() {
 		blurImg.frame = UIScreen.main.bounds
 		blurImg.backgroundColor = UIColor.black
 		blurImg.isUserInteractionEnabled = true
@@ -40,8 +38,8 @@ public class Indicator {
 	private func hideIndicator() {
 
 		DispatchQueue.main.async {
-				self.blurImg.removeFromSuperview()
-				self.indicator.removeFromSuperview()
+			self.blurImg.removeFromSuperview()
+			self.indicator.removeFromSuperview()
 		}
 	}
 }

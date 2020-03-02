@@ -22,7 +22,7 @@ enum RequestServiceError: Error {
 		switch self {
 		case .unknown: return nil
 		case .badURL: return "Неверный формат URL"
-		case .noData: return "Данные не пришли"
+		case .noData: return "Ошибка получения данных"
 		case let .converter(error): return error.localizedDescription
 		case let .api(_, message): return message
 		}
