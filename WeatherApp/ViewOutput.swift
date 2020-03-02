@@ -9,8 +9,7 @@
 protocol ViewOutput: AnyObject {
 
 	// Вью загружена
-	func didLoad()
+	func didLoad(id: Int)
 
-	/// Выход с view
-//	func exit()
+	func didLoad(coord: Coord)
 }

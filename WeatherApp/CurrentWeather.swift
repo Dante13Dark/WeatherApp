@@ -18,6 +18,7 @@ struct CurrentWeather: Decodable, Equatable {
 	var dt: Int?
 	var sys: Sys?
 	var timezone: Int?
+	var id: Int?
 	var name: String?
 	var cod: Int?
 	var message: String?
@@ -33,6 +34,7 @@ struct CurrentWeather: Decodable, Equatable {
 		case dt = "dt"
 		case sys = "sys"
 		case timezone = "timezone"
+		case id
 		case name
 		case cod
 		case message
@@ -51,6 +53,7 @@ struct CurrentWeather: Decodable, Equatable {
 		dt = try? container.decode(Int.self, forKey: .dt)
 		sys = try? container.decode(Sys.self, forKey: .sys)
 		timezone = try? container.decode(Int.self, forKey: .timezone)
+		id = try? container.decode(Int.self, forKey: .id)
 		name = try? container.decode(String.self, forKey: .name)
 		cod = try container.decode(Int.self, forKey: .cod)
 		message = try? container.decode(String.self, forKey: .message)
@@ -67,13 +70,19 @@ struct Clouds: Decodable, Equatable {
 }
 
 // MARK: - Coord
-struct Coord: Decodable, Equatable {
-	var lat: Double?
-	var lon: Double?
+struct Coord: Codable, Equatable {
+	var lat: Double
+	var lon: Double
 
 	private enum CodingKeys: String, CodingKey {
 		case lat
 		case lon
+	}
+
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: CodingKeys.self)
+		try container.encode(lat, forKey: .lat)
+		try container.encode(lon, forKey: .lon)
 	}
 }
 

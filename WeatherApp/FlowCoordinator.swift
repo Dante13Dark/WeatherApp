@@ -31,9 +31,14 @@ extension FlowCoordinator: FlowCoordinatorProtocol {
 
 // MARK: - StartPresenterOutput
 extension FlowCoordinator: StartPresenterOutput {
-	func requestDataForStartScreen() {
+	func requestData(for id: Int) {
 		startPresenter?.present(.loader)
-		interactor.requestInfo()
+		interactor.requestInfo(id: id)
+	}
+
+	func requestDataForFirstScreen(coord: Coord) {
+		startPresenter?.present(.loader)
+		interactor.requestInfo(coord: coord)
 	}
 }
 
@@ -45,6 +50,9 @@ extension FlowCoordinator: InteractorOutput {
 
 	func received(error: RequestServiceError) {
 		print(error)
-		router.showErrorResponse(error)
+		DispatchQueue.main.async {
+			Indicator.sharedInstance.set(loaderIsHidden: true)
+			self.router.showErrorResponse(error)
+		}
 	}
 }

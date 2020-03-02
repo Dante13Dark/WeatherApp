@@ -14,7 +14,7 @@ final class RequestService: RequestServiceProtocol {
 		responseHandler: @escaping (Result<ResultType, RequestServiceError>) -> Void
 		) {
 		guard let url = URL(string: url) else {
-			responseHandler(.failure(.unknown))
+			responseHandler(.failure(.badURL))
 			return
 		}
 		print("URL: \(url)")
@@ -22,6 +22,7 @@ final class RequestService: RequestServiceProtocol {
 		URLSession.shared.dataTask(with: url){ (data, response, err) in
 
 			guard let data = data else {
+				responseHandler(.failure(.noData))
 				return
 			}
 			do {
@@ -37,37 +38,21 @@ final class RequestService: RequestServiceProtocol {
 						responseHandler(.success(obj))
 					}
 				}
-
-				responseHandler(.success(obj))
+				DispatchQueue.main.async {
+					responseHandler(.success(obj))
+				}
 			} catch {
 				responseHandler(.failure(.converter(error)))
 			}
 			}.resume()
 	}
 
+	func getCities() -> [City] {
+		guard let path = Bundle.main.path(forResource: "city.list", ofType: "json") else { return [] }
+		let fileUrl = URL(fileURLWithPath: path)
+		guard let data = try? Data(contentsOf: fileUrl, options: .mappedIfSafe) else { return [] }
+		guard let parsedResult: [City] = try? JSONDecoder().decode([City].self, from: data) else { return [] }
+		return parsedResult
+	}
 
-
-//	func run<T: Decodable>(
-//		url: String,
-//		completion: @escaping (T, Error?) -> Void){
-//
-//		let url = URL(string: url)
-//
-//		print("URL: \(url!)")
-//
-//		URLSession.shared.dataTask(with: url!){(data,  response, err) in
-//
-//			guard let data = data else {return}
-//			do {
-//				print("JSON RESPONSE: \(String(data: data, encoding: .utf8)!)")
-//				let obj = try JSONDecoder().decode(T.self, from: data)
-//				completion(obj, err as Error?)
-//
-//			} catch let jsonErr {
-//
-//				print("Failed to decode json:", jsonErr)
-//			}
-//			}.resume()
-//
-//	}
 }

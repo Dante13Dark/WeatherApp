@@ -31,19 +31,17 @@ public class Indicator {
 	}
 
 	private func showIndicator() {
-		DispatchQueue.main.async( execute: {
-
+		DispatchQueue.main.async {
 			UIApplication.shared.keyWindow?.addSubview(self.blurImg)
 			UIApplication.shared.keyWindow?.addSubview(self.indicator)
-		})
+		}
 	}
 
 	private func hideIndicator() {
 
-		DispatchQueue.main.async( execute:
-			{
+		DispatchQueue.main.async {
 				self.blurImg.removeFromSuperview()
 				self.indicator.removeFromSuperview()
-		})
+		}
 	}
 }

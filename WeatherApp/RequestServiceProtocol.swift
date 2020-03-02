@@ -9,6 +9,10 @@
 enum RequestServiceError: Error {
 	/// Неизвестная ошибка выполенния запроса.
 	case unknown
+
+	case badURL
+
+	case noData
 	/// Ошибка конвертации данных.
 	case converter(Error)
 	/// Ошибка пришедшая с сервера
@@ -17,6 +21,8 @@ enum RequestServiceError: Error {
 	var errorDescription: String? {
 		switch self {
 		case .unknown: return nil
+		case .badURL: return "Неверный формат URL"
+		case .noData: return "Данные не пришли"
 		case let .converter(error): return error.localizedDescription
 		case let .api(_, message): return message
 		}

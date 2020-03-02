@@ -45,7 +45,11 @@ extension StartPresenter: StartPresenterInput {
 }
 
 extension StartPresenter: ViewOutput {
-	func didLoad() {
-		output.requestDataForStartScreen()
+	func didLoad(coord: Coord) {
+		output.requestDataForFirstScreen(coord: coord)
+	}
+
+	func didLoad(id: Int) {
+		output.requestData(for: id)
 	}
 }

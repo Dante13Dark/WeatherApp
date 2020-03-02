@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 /// Интерактор
 final class Interactor {
@@ -22,9 +23,19 @@ final class Interactor {
 
 // MARK: - InteractorInput
 extension Interactor: InteractorInput {
+	func requestInfo(coord: Coord) {
+		let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric&appid=cfeae8c84fe84eba49d6279199a24b24&lang=ru"
+		run(url: url)
+	}
 
-	func requestInfo() {
-		let url = "https://api.openweathermap.org/data/2.5/weather?lat=55.751244&lon=37.618423&units=metric&appid=cfeae8c84fe84eba49d6279199a24b24&lang=ru"
+
+	func requestInfo(id: Int) {
+		let id = String(id)
+		let url = "https://api.openweathermap.org/data/2.5/weather?id=\(id)&units=metric&appid=cfeae8c84fe84eba49d6279199a24b24&lang=ru"
+		run(url: url)
+	}
+
+	private func run(url: String) {
 		requestService.run(url: url) { [weak self] (response: Result<CurrentWeather, RequestServiceError>) in
 			guard let self = self else { return }
 			switch response {
