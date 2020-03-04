@@ -12,23 +12,36 @@ final class LocationService: NSObject {
 
 	let locationManager = CLLocationManager()
 
-	weak var output: LocationServiceProtocol?
+	weak var output: LocationServiceOutput?
 
 	override init() {
 		super.init()
 		locationManager.delegate = self
-
+		print("CURRENT LOCATION STATUS = \(CLLocationManager.authorizationStatus())")
 		locationManager.requestWhenInUseAuthorization()
 		if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
+			print("REQUEST LOCATION")
 			locationManager.requestLocation()
 		}
 	}
 }
 
+extension LocationService: LocationServiceInput {
+	func getCoord() {
+		if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
+			print("DELEGATE REQUEST LOCATION")
+			locationManager.requestLocation()
+		}
+	}
+}
 extension LocationService: CLLocationManagerDelegate {
 
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-		print("location manager authorization status changed")
+		print("location manager authorization status changed to \(status.rawValue)")
+		if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
+			print("REQUEST LOCATION")
+			locationManager.requestLocation()
+		}
 	}
 
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

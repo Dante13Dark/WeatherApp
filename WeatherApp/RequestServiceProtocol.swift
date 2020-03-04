@@ -7,26 +7,27 @@
 
 /// Ошибки выполнения запроса
 enum RequestServiceError: Error {
-	/// Неизвестная ошибка выполенния запроса.
-	case unknown
-
+	/// Неверный формат url
 	case badURL
-
+	/// Ошибка получения данных
 	case noData
-	/// Ошибка конвертации данных.
+	/// Ошибка декодирования данных.
 	case converter(Error)
-	/// Ошибка пришедшая с сервера
-	case api(Int, String)
+	/// Ощибка пришедшая с сервера
+	case serverError(ServerError)
 
-	var errorDescription: String? {
+	var localizedDescription: String? {
 		switch self {
-		case .unknown: return nil
 		case .badURL: return "Неверный формат URL"
 		case .noData: return "Ошибка получения данных"
 		case let .converter(error): return error.localizedDescription
-		case let .api(_, message): return message
+		case let .serverError(error): return error.message
 		}
 	}
+}
+
+struct ServerError: Error {
+	var message: String
 }
 
 protocol RequestServiceProtocol {

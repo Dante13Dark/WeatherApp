@@ -11,7 +11,7 @@ import CoreLocation
 
 final class Assembly: NSObject {
 
-	let loader = Loader()
+	let loader: LoaderProtocol = Loader()
 
 	var window: UIWindow?
 
@@ -30,7 +30,8 @@ final class Assembly: NSObject {
 		let dataService = DataService()
 		
 		let interactor = Interactor(requestService: requestService,
-									dataService: dataService)
+									dataService: dataService,
+									locationService: locationService)
 		locationService.output = interactor
 		let flowCoordinator = FlowCoordinator(interactor: interactor, router: router)
 		interactor.output = flowCoordinator
@@ -53,16 +54,6 @@ final class Assembly: NSObject {
 		coordinator.startPresenter = presenter
 
 		let viewController = StartViewController(output: presenter)
-		presenter.view = viewController
-
-		return viewController
-	}
-
-	func makeWeatherScreen() -> UIViewController {
-		let presenter = WeatherPresenter(output: coordinator)
-		coordinator.weatherPresenter = presenter
-
-		let viewController = WeatherViewController(output: presenter)
 		presenter.view = viewController
 
 		return viewController

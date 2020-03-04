@@ -8,20 +8,20 @@
 
 struct CurrentWeather: Decodable, Equatable {
 
-	var coord: Coord?
-	var weather: [Weather]?
+	var coord: Coord
+	var weather: [Weather]
 	var base: String?
-	var main: Main?
-	var visibility: Int?
-	var wind: Wind?
-	var clouds: Clouds?
-	var dt: Int?
-	var sys: Sys?
-	var timezone: Int?
-	var id: Int?
-	var name: String?
-	var cod: Int?
-	var message: String?
+	var main: Main
+	var visibility: Int
+	var wind: Wind
+	var clouds: Clouds
+	var dt: Int
+	var sys: Sys
+	var timezone: Int
+	var id: Int
+	var name: String
+	var cod: Int
+	var message: String = ""
 
 	private enum CodingKeys: String, CodingKey {
 		case coord
@@ -43,27 +43,32 @@ struct CurrentWeather: Decodable, Equatable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		coord = try? container.decode(Coord.self, forKey: .coord)
-		weather = try? container.decode([Weather].self, forKey: .weather)
-		base = try? container.decode(String.self, forKey: .base)
-		main = try? container.decode(Main.self, forKey: .main)
-		visibility = try? container.decode(Int.self, forKey: .visibility)
-		wind = try? container.decode(Wind.self, forKey: .wind)
-		clouds = try? container.decode(Clouds.self, forKey: .clouds)
-		dt = try? container.decode(Int.self, forKey: .dt)
-		sys = try? container.decode(Sys.self, forKey: .sys)
-		timezone = try? container.decode(Int.self, forKey: .timezone)
-		id = try? container.decode(Int.self, forKey: .id)
-		name = try? container.decode(String.self, forKey: .name)
 		cod = try container.decode(Int.self, forKey: .cod)
-		message = try? container.decode(String.self, forKey: .message)
+
+		if container.contains(.message) {
+			message = try container.decode(String.self, forKey: .message)
+			throw ServerError(message: message)
+		} else {
+			coord = try container.decode(Coord.self, forKey: .coord)
+			weather = try container.decode([Weather].self, forKey: .weather)
+			base = try? container.decode(String.self, forKey: .base)
+			main = try container.decode(Main.self, forKey: .main)
+			visibility = try container.decode(Int.self, forKey: .visibility)
+			wind = try container.decode(Wind.self, forKey: .wind)
+			clouds = try container.decode(Clouds.self, forKey: .clouds)
+			dt = try container.decode(Int.self, forKey: .dt)
+			sys = try container.decode(Sys.self, forKey: .sys)
+			timezone = try container.decode(Int.self, forKey: .timezone)
+			id = try container.decode(Int.self, forKey: .id)
+			name = try container.decode(String.self, forKey: .name)
+		}
 	}
 }
 
 
 // MARK: - Clouds
 struct Clouds: Decodable, Equatable {
-	var all: Int?
+	var all: Int
 	private enum CodingKeys: String, CodingKey {
 		case all
 	}
@@ -88,9 +93,9 @@ struct Coord: Codable, Equatable {
 
 // MARK: - Main
 struct Main: Decodable, Equatable {
-	var temp: Double?
-	var pressure: Int?
-	var humidity: Int?
+	var temp: Double
+	var pressure: Int
+	var humidity: Int
 	var tempMin: Double?
 	var tempMax: Double?
 
@@ -107,13 +112,15 @@ struct Main: Decodable, Equatable {
 struct Sys: Decodable, Equatable {
 	var type: Int?
 	var id: Int?
-	var country: String?
-	var sunrise: Int?
-	var sunset: Int?
+	var message: Double?
+	var country: String
+	var sunrise: Int
+	var sunset: Int
 
 	private enum CodingKeys: String, CodingKey {
 		case type
 		case id
+		case message
 		case country
 		case sunrise
 		case sunset
@@ -122,10 +129,10 @@ struct Sys: Decodable, Equatable {
 
 // MARK: - Weather
 struct Weather: Decodable, Equatable{
-	var id: Int?
-	var main: String?
+	var id: Int
+	var main: String
 	var weatherDescription: String?
-	var icon: String?
+	var icon: String
 
 	private enum CodingKeys: String, CodingKey {
 		case id

@@ -1,5 +1,5 @@
 //
-//  ListOfCitiesViewController.swift
+//  CitiesViewController.swift
 //  WeatherApp
 //
 //  Created by Yaroslav Tutushkin on 01.03.2020.
@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-final class ListOfCitiesViewController: UIViewController {
+final class CitiesViewController: UIViewController {
 
 	// MARK: - Search
 	var cities: [City] = []
@@ -85,7 +85,7 @@ final class ListOfCitiesViewController: UIViewController {
 	}
 }
 
-extension ListOfCitiesViewController: UITableViewDelegate {
+extension CitiesViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 100
 	}
@@ -98,7 +98,7 @@ extension ListOfCitiesViewController: UITableViewDelegate {
 	}
 }
 
-extension ListOfCitiesViewController: UITableViewDataSource {
+extension CitiesViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
 		return savedCities.count
@@ -114,7 +114,7 @@ extension ListOfCitiesViewController: UITableViewDataSource {
 	}
 }
 
-extension ListOfCitiesViewController: UISearchResultsUpdating {
+extension CitiesViewController: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
 		if isSearchBarEmpty { return }
 		NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(reload), object: nil)

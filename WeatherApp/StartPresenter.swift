@@ -30,7 +30,12 @@ extension StartPresenter: StartViewOutput {
 
 // MARK: - StartPresenterInput
 extension StartPresenter: StartPresenterInput {
-	func set(city: String) {
+	func set(currentWeather: CurrentWeather) {
+		if let icon = currentWeather.weather.first?.icon {
+			let temp = String(Int(currentWeather.main.temp))
+			view?.set(city: currentWeather.name,
+					  temp:temp + "°C",
+					  icon: icon)
+		}
 	}
 }
-

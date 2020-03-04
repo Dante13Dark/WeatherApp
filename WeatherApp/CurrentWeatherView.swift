@@ -34,7 +34,7 @@ final class CurrentWeatherView: UIView {
 
 	override init(frame: CGRect) {
 		super.init(frame: .zero)
-		backgroundColor = .clear
+		backgroundColor = .red
 		addSubview(temperature)
 		addSubview(icon)
 
@@ -49,7 +49,7 @@ final class CurrentWeatherView: UIView {
 	// MARK: - Private
 	private func setupLayout() {
 		NSLayoutConstraint.activate([
-			temperature.topAnchor.constraint(equalTo: topAnchor, constant:200),
+			temperature.topAnchor.constraint(equalTo: topAnchor),
 			temperature.centerXAnchor.constraint(equalTo: centerXAnchor),
 			temperature.heightAnchor.constraint(equalToConstant: 100),
 			icon.topAnchor.constraint(equalTo: temperature.bottomAnchor, constant: Constants.contentInset),

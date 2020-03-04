@@ -19,7 +19,7 @@ final class RequestService: RequestServiceProtocol {
 		}
 		print("URL: \(url)")
 
-		URLSession.shared.dataTask(with: url){ (data, response, err) in
+		URLSession.shared.dataTask(with: url) { (data, response, err) in
 
 			guard let data = data else {
 				responseHandler(.failure(.noData))
@@ -28,19 +28,9 @@ final class RequestService: RequestServiceProtocol {
 			do {
 				print("JSON RESPONSE: \(String(data: data, encoding: .utf8)!)")
 				let obj = try JSONDecoder().decode(ResultType.self, from: data)
-
-				if let current = obj as? CurrentWeather,
-					let cod = current.cod, let message = current.message {
-					switch cod {
-					case 401, 404, 429:
-						responseHandler(.failure(.api(cod, message)))
-					default:
-						responseHandler(.success(obj))
-					}
-				}
-				DispatchQueue.main.async {
-					responseHandler(.success(obj))
-				}
+				responseHandler(.success(obj))
+			} catch let error as ServerError {
+				responseHandler(.failure(.serverError(error)))
 			} catch {
 				responseHandler(.failure(.converter(error)))
 			}

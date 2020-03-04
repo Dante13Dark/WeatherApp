@@ -17,16 +17,25 @@ final class Interactor {
 
 	private let dataService: DataServiceProtocol
 
+	private let locationService: LocationServiceInput
+
 	init(requestService: RequestServiceProtocol,
-		 dataService: DataServiceProtocol) {
+		 dataService: DataServiceProtocol,
+		 locationService: LocationServiceInput) {
 		self.requestService = requestService
 		self.dataService = dataService
+		self.locationService = locationService
 	}
 }
 
 
 // MARK: - InteractorInput
 extension Interactor: InteractorInput {
+
+	func requestInfo(index: Int) {
+		locationService.getCoord()
+	}
+
 	func requestInfo(model: Model) {
 		switch model {
 		case .city(let city):
@@ -44,6 +53,7 @@ extension Interactor: InteractorInput {
 			guard let self = self else { return }
 			switch response {
 			case let .success(result):
+				print("MODEL: \(result)")
 				self.output?.received(currentWeather: result)
 			case let .failure(error):
 				self.output?.received(error: error)
@@ -52,12 +62,8 @@ extension Interactor: InteractorInput {
 	}
 }
 
-extension Interactor: LocationServiceProtocol {
-	// локация и потом дергает дата сорс
+extension Interactor: LocationServiceOutput {
 	func didUpdate(coord: Coord) {
 		output?.received(model: Model.location(coord))
-		dataService.load().forEach { city in
-			output?.received(model: Model.city(city))
-		}
 	}
 }

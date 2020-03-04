@@ -24,10 +24,6 @@ final class Loader {
 		indicator.color = .red
 	}
 
-	func set(loaderIsHidden: Bool) {
-		loaderIsHidden ? hideIndicator() : showIndicator()
-	}
-
 	private func showIndicator() {
 		DispatchQueue.main.async {
 			UIApplication.shared.keyWindow?.addSubview(self.blurImg)
@@ -42,4 +38,15 @@ final class Loader {
 			self.indicator.removeFromSuperview()
 		}
 	}
+}
+
+extension Loader: LoaderProtocol {
+	func set(loaderIsHidden: Bool) {
+		loaderIsHidden ? hideIndicator() : showIndicator()
+	}
+}
+
+protocol LoaderProtocol {
+	/// Изменить состояние лоадера
+	func set(loaderIsHidden: Bool)
 }
