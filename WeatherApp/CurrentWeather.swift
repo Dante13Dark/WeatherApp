@@ -94,13 +94,15 @@ struct Coord: Codable, Equatable {
 // MARK: - Main
 struct Main: Decodable, Equatable {
 	var temp: Double
+	var feelsLike: Double
 	var pressure: Int
 	var humidity: Int
-	var tempMin: Double?
-	var tempMax: Double?
+	var tempMin: Double
+	var tempMax: Double
 
 	private enum CodingKeys: String, CodingKey {
 		case temp
+		case feelsLike = "feels_like"
 		case pressure
 		case humidity
 		case tempMin = "temp_min"
@@ -131,21 +133,21 @@ struct Sys: Decodable, Equatable {
 struct Weather: Decodable, Equatable{
 	var id: Int
 	var main: String
-	var weatherDescription: String?
+	var weatherDescription: String
 	var icon: String
 
 	private enum CodingKeys: String, CodingKey {
 		case id
 		case main
-		case weatherDescription
+		case weatherDescription = "description"
 		case icon
 	}
 }
 
 // MARK: - Wind
 struct Wind: Decodable, Equatable {
-	var speed: Double?
-	var deg: Int?
+	var speed: Double
+	var deg: Int
 
 	private enum CodingKeys: String, CodingKey {
 		case speed
