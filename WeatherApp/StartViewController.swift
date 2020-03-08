@@ -49,12 +49,15 @@ class StartViewController: UIViewController {
 }
 
 extension StartViewController: StartViewInput {
-	func set(city: String, temp: String, desc: String) {
+	func set(model: [WeatherViewModelItem]) {
+		DispatchQueue.main.async {
+			self.tableView.set(model: model)
+		}
+	}
+
+	func set(city: String) {
 		DispatchQueue.main.async {
 			self.navigationItem.title = city
-			self.tableView.set(temp: temp, desc: desc)
-//			self.currentWeather.temperature.text = temp
-//			self.currentWeather.icon.image = UIImage(named: icon)
 		}
 	}
 }

@@ -7,50 +7,39 @@
 
 import UIKit
 
-struct WeatherModel {
-	var city: String = ""
-	var country: String = ""
-	var date: String = ""
-	var sunrise: String = ""
-	var sunset: String = ""
-	var lon: String = ""
-	var lat: String = ""
-	var temp: String = ""
-	var feelsLike: String = ""
-	var tempMin: String = ""
-	var tempMax: String = ""
-	var pressure: String = ""
-	var humidity: String = ""
-	var visibility: String = ""
-	var windSpeed: String = ""
-	var windDeg: String = ""
-	var clouds: String = ""
-	var desc: String = ""
-	var icon: UIImage = UIImage()
+enum WeatherViewModelItemType {
+	case header
+	case detail
+	case today
+}
 
-	init(currentWeather: CurrentWeather) {
-		city = currentWeather.name
-		country = currentWeather.sys.country
-		date = makeDate(time: currentWeather.dt, timezone: currentWeather.timezone, format: "dd MMMM yyyy")
-		sunrise = makeDate(time: currentWeather.sys.sunrise, timezone: currentWeather.timezone, format: "HH:MM")
-		sunset = makeDate(time: currentWeather.sys.sunset, timezone: currentWeather.timezone, format: "HH:MM")
-		lat = "\(currentWeather.coord.lat)"
-		lon = "\(currentWeather.coord.lon)"
+protocol WeatherViewModelItem {
+	var type: WeatherViewModelItemType { get }
+	var rowCount: Int { get }
+}
 
-		temp = makeTemp(temp: currentWeather.main.temp)
-		feelsLike = makeTemp(temp: currentWeather.main.feelsLike)
-		tempMin = makeTemp(temp: currentWeather.main.tempMin)
-		tempMax = makeTemp(temp: currentWeather.main.tempMax)
-		pressure = makePressure(pressure: currentWeather.main.pressure)
-		humidity = "\(currentWeather.main.humidity) %"
-		visibility = String(format: "%.1f км", Double(currentWeather.visibility / 1000))
-		windSpeed = String(format: "%.1f м/с", currentWeather.wind.speed)
-		windDeg = WindDirection(currentWeather.wind.deg).rawValue
-		clouds = "\(currentWeather.clouds.all) %"
-		desc = currentWeather.weather.first?.weatherDescription.capitalized ?? ""
-		if let iconName = currentWeather.weather.first?.icon,
-			let icon = UIImage(named: iconName) {
-			self.icon = icon
+class WeatherViewModel: NSObject {
+	var items = [WeatherViewModelItem]()
+
+	init(currentWeather: CurrentWeather){
+		super.init()
+		let header = HeaderViewModelItem(temp: makeTemp(temp: currentWeather.main.temp),
+									 feelsLike: makeTemp(temp: currentWeather.main.feelsLike),
+									 desc: currentWeather.weather.first?.weatherDescription.capitalized ?? "")
+		items.append(header)
+		let today = TodayViewModelItem(date: makeDate(time: currentWeather.dt,
+												  timezone: currentWeather.timezone,
+												  format: "dd MMMM yyyy"),
+								   tempMin: makeTemp(temp: currentWeather.main.tempMin),
+								   tempMax: makeTemp(temp: currentWeather.main.tempMax),
+								   iconName: currentWeather.weather.first?.icon ?? "")
+		items.append(today)
+		let detailItems = makeDetailItems(currentWeather: currentWeather)
+		detailItems.forEach { (arg0) in
+
+			let (key, value) = arg0
+			let detail = DetailsViewModelItem(title: key, detail: value)
+			items.append(detail)
 		}
 	}
 
@@ -66,13 +55,13 @@ struct WeatherModel {
 
 		var range: CountableClosedRange<Int> {
 			switch self {
-			case .northWest: return 24...68
-			case .west: return 69...113
-			case .southWest: return 114...158
-			case .south: return 159...203
-			case .southEast: return 204...248
-			case .east: return 249...293
-			case .northEast: return 294...338
+			case .northWest: return 23...67
+			case .west: return 68...112
+			case .southWest: return 113...157
+			case .south: return 158...202
+			case .southEast: return 203...247
+			case .east: return 248...292
+			case .northEast: return 293...337
 			case .north: return 0...360
 			}
 		}
@@ -110,5 +99,84 @@ struct WeatherModel {
 		let doublePressure = ((Double(pressure) * 100) / 1.333).rounded()/100
 		let stringPressure = "\(doublePressure) мм рт.ст."
 		return stringPressure
+	}
+
+	private func makeDetailItems(currentWeather: CurrentWeather) -> Array<(key: String, value: String)> {
+		var items: Array<(key: String, value: String)> = []
+
+		let sunrise = makeDate(time: currentWeather.sys.sunrise,
+							   timezone: currentWeather.timezone, format: "HH:MM")
+		items.append(("Рассвет", sunrise))
+		let sunset = makeDate(time: currentWeather.sys.sunset,
+							  timezone: currentWeather.timezone, format: "HH:MM")
+		items.append(("Закат", sunset))
+		items.append(("Давление", makePressure(pressure: currentWeather.main.pressure)))
+		items.append(("Влажность", "\(currentWeather.main.humidity) %"))
+		items.append(("Видимость", String(format: "%.1f км", Double(currentWeather.visibility / 1000))))
+		items.append(("Скорость ветра", String(format: "%.1f м/с", currentWeather.wind.speed)))
+		items.append(("Направление ветра", WindDirection(currentWeather.wind.deg).rawValue))
+		items.append(("Облачноть", "\(currentWeather.clouds.all) %"))
+
+		return items
+	}
+}
+
+struct HeaderViewModelItem: WeatherViewModelItem {
+	var type: WeatherViewModelItemType {
+		return .header
+	}
+
+	var rowCount: Int {
+		return 1
+	}
+
+	var temp: String
+	var feelsLike: String
+	var desc: String
+
+	init(temp: String, feelsLike: String, desc: String) {
+		self.temp = temp
+		self.feelsLike = "Ощущается как \(feelsLike)"
+		self.desc = desc
+	}
+}
+
+struct TodayViewModelItem: WeatherViewModelItem {
+	var type: WeatherViewModelItemType {
+		return .today
+	}
+
+	var rowCount: Int {
+		return 1
+	}
+
+	var date: String
+	var tempMin: String
+	var tempMax: String
+	var iconName: String
+
+	init(date: String, tempMin: String, tempMax: String, iconName: String) {
+		self.date = date
+		self.tempMin = tempMin
+		self.tempMax = tempMax
+		self.iconName = iconName
+	}
+}
+
+struct DetailsViewModelItem: WeatherViewModelItem {
+	var type: WeatherViewModelItemType {
+		return .detail
+	}
+
+	var rowCount: Int {
+		return 1
+	}
+
+	var title: String
+	var detail: String
+
+	init(title: String, detail: String) {
+		self.title = title
+		self.detail = detail
 	}
 }

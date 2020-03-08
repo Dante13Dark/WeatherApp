@@ -33,6 +33,7 @@
 		BA61C71D240802960099A5F7 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA61C71C240802960099A5F7 /* RequestService.swift */; };
 		BA61C71F240803BC0099A5F7 /* RequestServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA61C71E240803BC0099A5F7 /* RequestServiceProtocol.swift */; };
 		F332FECB240C511A00FD771F /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F332FECA240C511A00FD771F /* City.swift */; };
+		F333DEE52414956500F37D7A /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333DEE42414956500F37D7A /* TodayCell.swift */; };
 		F333F068240AEC30005D1327 /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333F067240AEC30005D1327 /* CurrentWeatherView.swift */; };
 		F333F073240B1546005D1327 /* city.list.json in Resources */ = {isa = PBXBuildFile; fileRef = F333F072240B1546005D1327 /* city.list.json */; };
 		F37EFF9D241412B40067539D /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37EFF9C241412B40067539D /* TableView.swift */; };
@@ -101,6 +102,7 @@
 		BA61C71C240802960099A5F7 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		BA61C71E240803BC0099A5F7 /* RequestServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServiceProtocol.swift; sourceTree = "<group>"; };
 		F332FECA240C511A00FD771F /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		F333DEE42414956500F37D7A /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		F333F067240AEC30005D1327 /* CurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 		F333F072240B1546005D1327 /* city.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.list.json; sourceTree = "<group>"; };
 		F37EFF9C241412B40067539D /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				F3C7D67C241067F000CBBE5C /* HeaderCell.swift */,
 				F37EFF9C241412B40067539D /* TableView.swift */,
 				F37EFF9E2414490B0067539D /* DetailCell.swift */,
+				F333DEE42414956500F37D7A /* TodayCell.swift */,
 			);
 			name = FormItems;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				F383EA05240D935400A494AF /* DataServiceProtocol.swift in Sources */,
 				BA61C6FF2407E26C0099A5F7 /* StartViewOutput.swift in Sources */,
 				BA61C6FD2407E25A0099A5F7 /* StartViewInput.swift in Sources */,
+				F333DEE52414956500F37D7A /* TodayCell.swift in Sources */,
 				BA61C71A240801370099A5F7 /* InteractorOutput.swift in Sources */,
 				BA61C6BB2407B5050099A5F7 /* AppDelegate.swift in Sources */,
 				BA61C6F72407D8320099A5F7 /* StartPresenter.swift in Sources */,
