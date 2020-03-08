@@ -56,61 +56,11 @@ final class CitiesViewController: UIViewController {
 
 		navigationItem.searchController = searchController
 		searchController.searchResultsUpdater = self
-
-		setupTableView()
-		setupLayout()
-
-		updateTableContent()
-	}
-
-	func updateTableContent() {
-	}
-
-	func setupTableView() {
-		tableView.register(CityCell.self, forCellReuseIdentifier: "City")
-		tableView.delegate = self
-		tableView.dataSource = self
-
-		view.addSubview(tableView)
-	}
-
-	func setupLayout() {
-
-		NSLayoutConstraint.activate([
-			tableView.topAnchor.constraint(equalTo: view.topAnchor),
-			tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-			tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-			tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-			])
-	}
-}
-
-extension CitiesViewController: UITableViewDelegate {
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return 100
-	}
-
-	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		if editingStyle == .delete {
-			self.savedCities.remove(at: indexPath.row)
-			tableView.deleteRows(at: [indexPath], with: .fade)
-		}
-	}
-}
-
-extension CitiesViewController: UITableViewDataSource {
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-		return savedCities.count
-	}
-
-	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "City", for: indexPath) as? CityCell else { return UITableViewCell() }
-
-		cell.backgroundColor = UIColor.white
-		cell.set(city: savedCities[indexPath.row])
-		return cell
+//
+//		setupTableView()
+//		setupLayout()
+//
+//		updateTableContent()
 	}
 }
 

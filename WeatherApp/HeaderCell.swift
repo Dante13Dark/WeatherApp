@@ -18,8 +18,18 @@ final class HeaderCell: UITableViewCell {
 			temp.text = item.temp
 			desc.text = item.desc
 			feelsLike.text = item.feelsLike
+			icon.image = UIImage(named: item.iconName)
 		}
 	}
+
+	lazy var icon: UIImageView = {
+		let icon = UIImageView()
+		NSLayoutConstraint.activate([
+			icon.widthAnchor.constraint(equalToConstant: 100),
+			icon.heightAnchor.constraint(equalToConstant: 100)
+			])
+		return icon
+	}()
 
 	lazy var temp: UILabel = {
 		let label = UILabel()
@@ -44,8 +54,17 @@ final class HeaderCell: UITableViewCell {
 		return feelsLike
 	}()
 
+	lazy var horizontalStack: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [temp, icon])
+		stackView.axis = .horizontal
+		stackView.spacing = 10
+		stackView.alignment = .center
+		stackView.distribution = .equalSpacing
+		return stackView
+	}()
+
 	lazy var stackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [desc, temp, feelsLike])
+		let stackView = UIStackView(arrangedSubviews: [desc, horizontalStack, feelsLike])
 		stackView.axis = .vertical
 		stackView.spacing = 10
 		stackView.alignment = .center

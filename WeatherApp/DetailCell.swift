@@ -23,7 +23,7 @@ final class DetailCell: UITableViewCell {
 	// MARK: - Initializer
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+		super.init(style: .value1, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
 		backgroundColor = .clear
 	}

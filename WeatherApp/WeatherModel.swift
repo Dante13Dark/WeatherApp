@@ -25,11 +25,12 @@ class WeatherViewModel: NSObject {
 		super.init()
 		let header = HeaderViewModelItem(temp: makeTemp(temp: currentWeather.main.temp),
 									 feelsLike: makeTemp(temp: currentWeather.main.feelsLike),
-									 desc: currentWeather.weather.first?.weatherDescription.capitalized ?? "")
+									 desc: currentWeather.weather.first?.weatherDescription.capitalized ?? "",
+									 iconName: currentWeather.weather.first?.icon ?? "")
 		items.append(header)
 		let today = TodayViewModelItem(date: makeDate(time: currentWeather.dt,
 												  timezone: currentWeather.timezone,
-												  format: "dd MMMM yyyy"),
+												  format: "dd MMMM"),
 								   tempMin: makeTemp(temp: currentWeather.main.tempMin),
 								   tempMax: makeTemp(temp: currentWeather.main.tempMax),
 								   iconName: currentWeather.weather.first?.icon ?? "")
@@ -113,9 +114,10 @@ class WeatherViewModel: NSObject {
 		items.append(("Давление", makePressure(pressure: currentWeather.main.pressure)))
 		items.append(("Влажность", "\(currentWeather.main.humidity) %"))
 		items.append(("Видимость", String(format: "%.1f км", Double(currentWeather.visibility / 1000))))
-		items.append(("Скорость ветра", String(format: "%.1f м/с", currentWeather.wind.speed)))
-		items.append(("Направление ветра", WindDirection(currentWeather.wind.deg).rawValue))
-		items.append(("Облачноть", "\(currentWeather.clouds.all) %"))
+		let windDirection = WindDirection(currentWeather.wind.deg).rawValue
+		let windSpeed = String(format: "%.1f м/с", currentWeather.wind.speed)
+		items.append(("Ветер", "\(windDirection) \(windSpeed)" ))
+		items.append(("Облачноcть", "\(currentWeather.clouds.all) %"))
 
 		return items
 	}
@@ -133,11 +135,14 @@ struct HeaderViewModelItem: WeatherViewModelItem {
 	var temp: String
 	var feelsLike: String
 	var desc: String
+	var iconName: String
 
-	init(temp: String, feelsLike: String, desc: String) {
+	init(temp: String, feelsLike: String, desc: String, iconName: String) {
 		self.temp = temp
 		self.feelsLike = "Ощущается как \(feelsLike)"
 		self.desc = desc
+		self.iconName = iconName
+
 	}
 }
 
