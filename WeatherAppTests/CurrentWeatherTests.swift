@@ -5,28 +5,46 @@
 //  Created by Yaroslav Tutushkin on 09.03.2020.
 //
 
+@testable import WeatherApp
 import XCTest
 
 class CurrentWeatherTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+	func testDecodeCurrentWeather() {
+		// arrange
+		let fileName = "1-currentWeather"
+		guard let fileData = readFile(fileName) else {
+			XCTFail("Can't read file \(fileName).")
+			return
+		}
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+		// act & assert
+		XCTAssertNoThrow(try JSONDecoder().decode(CurrentWeather.self, from: fileData),
+						 "Failed for \"\(fileName).json\"")
+	}
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+	func testDecodeCurrentWeatherError() {
+		// arrange
+		let fileName = "3-error"
+		guard let fileData = readFile(fileName) else {
+			XCTFail("Can't read file \(fileName).")
+			return
+		}
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+		// arrange & act
+		XCTAssertThrowsError(try JSONDecoder().decode(CurrentWeather.self, from: fileData)) { error in
+			// assert
+			guard error is ServerError else {
+				return XCTFail()
+			}
+		}
+	}
 
+	// MARK: - Helpers
+
+	private func readFile(_ fileName: String) -> Data? {
+		guard let path = Bundle(for: CurrentWeatherTests.self).path(forResource: fileName, ofType: ".json")
+			else { return nil }
+		return try? Data(contentsOf: URL(fileURLWithPath: path))
+	}
 }

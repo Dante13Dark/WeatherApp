@@ -5,28 +5,29 @@
 //  Created by Yaroslav Tutushkin on 09.03.2020.
 //
 
+@testable import WeatherApp
 import XCTest
 
 class WeatherForecastTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+	func testDecodeWeatherForecast() {
+		// arrange
+		let fileName = "2-weatherForecast"
+		guard let fileData = readFile(fileName) else {
+			XCTFail("Can't read file \(fileName).")
+			return
+		}
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+		// act & assert
+		XCTAssertNoThrow(try JSONDecoder().decode(WeatherForecast.self, from: fileData),
+						 "Failed for \"\(fileName).json\"")
+	}
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+	// MARK: - Helpers
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+	private func readFile(_ fileName: String) -> Data? {
+		guard let path = Bundle(for: WeatherForecastTests.self).path(forResource: fileName, ofType: ".json")
+			else { return nil }
+		return try? Data(contentsOf: URL(fileURLWithPath: path))
+	}
 }

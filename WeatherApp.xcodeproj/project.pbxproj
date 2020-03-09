@@ -54,6 +54,9 @@
 		F3C822B62416E00E00115DA6 /* 3-error.json in Resources */ = {isa = PBXBuildFile; fileRef = F3C822B52416E00E00115DA6 /* 3-error.json */; };
 		F3C822B82416E23700115DA6 /* WeatherForecast+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822B72416E23700115DA6 /* WeatherForecast+Mock.swift */; };
 		F3C822BC2416E27C00115DA6 /* WeatherForecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822BB2416E27C00115DA6 /* WeatherForecastTests.swift */; };
+		F3C822BE2416E5E100115DA6 /* InteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822BD2416E5E100115DA6 /* InteractorTests.swift */; };
+		F3C822C02416E6A300115DA6 /* LocationServiceInputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822BF2416E6A300115DA6 /* LocationServiceInputSpy.swift */; };
+		F3C822C22416E76B00115DA6 /* RequestServiceProtocolSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822C12416E76B00115DA6 /* RequestServiceProtocolSpy.swift */; };
 		F3CBD23F240850DB00EBFA18 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CBD23E240850DB00EBFA18 /* LoadingView.swift */; };
 		F3DA3ABA24158DF70087306A /* ScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3AB924158DF70087306A /* ScrollCell.swift */; };
 		F3DA3ABC2415900D0087306A /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3ABB2415900D0087306A /* ForecastCell.swift */; };
@@ -131,6 +134,9 @@
 		F3C822B52416E00E00115DA6 /* 3-error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "3-error.json"; sourceTree = "<group>"; };
 		F3C822B72416E23700115DA6 /* WeatherForecast+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherForecast+Mock.swift"; sourceTree = "<group>"; };
 		F3C822BB2416E27C00115DA6 /* WeatherForecastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastTests.swift; sourceTree = "<group>"; };
+		F3C822BD2416E5E100115DA6 /* InteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorTests.swift; sourceTree = "<group>"; };
+		F3C822BF2416E6A300115DA6 /* LocationServiceInputSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceInputSpy.swift; sourceTree = "<group>"; };
+		F3C822C12416E76B00115DA6 /* RequestServiceProtocolSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServiceProtocolSpy.swift; sourceTree = "<group>"; };
 		F3CBD23E240850DB00EBFA18 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F3DA3AB924158DF70087306A /* ScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollCell.swift; sourceTree = "<group>"; };
 		F3DA3ABB2415900D0087306A /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
@@ -318,6 +324,7 @@
 				F3C822A22416BEA000115DA6 /* FlowCoordinatorTests.swift */,
 				F3C822AA2416C51C00115DA6 /* CurrentWeatherTests.swift */,
 				F3C822BB2416E27C00115DA6 /* WeatherForecastTests.swift */,
+				F3C822BD2416E5E100115DA6 /* InteractorTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -325,14 +332,16 @@
 		F3C822A52416BECA00115DA6 /* MockAndSpy */ = {
 			isa = PBXGroup;
 			children = (
+				F3C822A62416C48400115DA6 /* CurrentWeather+Mock.swift */,
+				F3C822B72416E23700115DA6 /* WeatherForecast+Mock.swift */,
 				F3C822AC2416C53500115DA6 /* CurrentWeather Resource */,
 				F3C822982416A92400115DA6 /* RouterInputSpy.swift */,
 				F3C8229C2416B14000115DA6 /* InteractorInputSpy.swift */,
 				F3C8229E2416B15A00115DA6 /* InteractorOutputSpy.swift */,
 				F3C822A02416BDC800115DA6 /* StartPresenterInputSpy.swift */,
 				F3C822B12416DDCE00115DA6 /* StartPresenterOutputSpy.swift */,
-				F3C822A62416C48400115DA6 /* CurrentWeather+Mock.swift */,
-				F3C822B72416E23700115DA6 /* WeatherForecast+Mock.swift */,
+				F3C822BF2416E6A300115DA6 /* LocationServiceInputSpy.swift */,
+				F3C822C12416E76B00115DA6 /* RequestServiceProtocolSpy.swift */,
 			);
 			name = MockAndSpy;
 			sourceTree = "<group>";
@@ -568,13 +577,16 @@
 			files = (
 				F3C822A72416C48400115DA6 /* CurrentWeather+Mock.swift in Sources */,
 				F3C822B82416E23700115DA6 /* WeatherForecast+Mock.swift in Sources */,
+				F3C822BE2416E5E100115DA6 /* InteractorTests.swift in Sources */,
 				F3C822A32416BEA000115DA6 /* FlowCoordinatorTests.swift in Sources */,
 				F3C822AB2416C51C00115DA6 /* CurrentWeatherTests.swift in Sources */,
 				F3C822BC2416E27C00115DA6 /* WeatherForecastTests.swift in Sources */,
+				F3C822C22416E76B00115DA6 /* RequestServiceProtocolSpy.swift in Sources */,
 				F3C822B22416DDCE00115DA6 /* StartPresenterOutputSpy.swift in Sources */,
 				F3C8229F2416B15A00115DA6 /* InteractorOutputSpy.swift in Sources */,
 				BA61C6D32407B5070099A5F7 /* WeatherAppTests.swift in Sources */,
 				F3C822992416A92400115DA6 /* RouterInputSpy.swift in Sources */,
+				F3C822C02416E6A300115DA6 /* LocationServiceInputSpy.swift in Sources */,
 				F3C822A12416BDC800115DA6 /* StartPresenterInputSpy.swift in Sources */,
 				F3C8229D2416B14000115DA6 /* InteractorInputSpy.swift in Sources */,
 			);
