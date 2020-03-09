@@ -50,9 +50,7 @@ class StartViewController: UIViewController {
 
 extension StartViewController: StartViewInput {
 	func set(model: [WeatherViewModelItem]) {
-		DispatchQueue.main.async {
-			self.tableView.set(model: model)
-		}
+		self.tableView.model = model
 	}
 
 	func set(city: String) {

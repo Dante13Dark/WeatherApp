@@ -35,7 +35,6 @@
 		F332FECB240C511A00FD771F /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F332FECA240C511A00FD771F /* City.swift */; };
 		F333DEE52414956500F37D7A /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333DEE42414956500F37D7A /* TodayCell.swift */; };
 		F333F073240B1546005D1327 /* city.list.json in Resources */ = {isa = PBXBuildFile; fileRef = F333F072240B1546005D1327 /* city.list.json */; };
-		F37EFF9D241412B40067539D /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37EFF9C241412B40067539D /* TableView.swift */; };
 		F37EFF9F2414490B0067539D /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37EFF9E2414490B0067539D /* DetailCell.swift */; };
 		F37EFFA12414501E0067539D /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37EFFA02414501E0067539D /* WeatherModel.swift */; };
 		F383E9FE240D8EE600A494AF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F383E9FD240D8EE600A494AF /* LocationService.swift */; };
@@ -48,6 +47,7 @@
 		F3CBD23F240850DB00EBFA18 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CBD23E240850DB00EBFA18 /* LoadingView.swift */; };
 		F3DA3ABA24158DF70087306A /* ScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3AB924158DF70087306A /* ScrollCell.swift */; };
 		F3DA3ABC2415900D0087306A /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3ABB2415900D0087306A /* ForecastCell.swift */; };
+		F3DA3ABE241679660087306A /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3ABD241679660087306A /* TableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,7 +102,6 @@
 		F332FECA240C511A00FD771F /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F333DEE42414956500F37D7A /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		F333F072240B1546005D1327 /* city.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.list.json; sourceTree = "<group>"; };
-		F37EFF9C241412B40067539D /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		F37EFF9E2414490B0067539D /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		F37EFFA02414501E0067539D /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		F383E9FD240D8EE600A494AF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -115,6 +114,7 @@
 		F3CBD23E240850DB00EBFA18 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F3DA3AB924158DF70087306A /* ScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollCell.swift; sourceTree = "<group>"; };
 		F3DA3ABB2415900D0087306A /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
+		F3DA3ABD241679660087306A /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,11 +299,11 @@
 			isa = PBXGroup;
 			children = (
 				F3C7D67C241067F000CBBE5C /* HeaderCell.swift */,
-				F37EFF9C241412B40067539D /* TableView.swift */,
 				F37EFF9E2414490B0067539D /* DetailCell.swift */,
 				F333DEE42414956500F37D7A /* TodayCell.swift */,
 				F3DA3AB924158DF70087306A /* ScrollCell.swift */,
 				F3DA3ABB2415900D0087306A /* ForecastCell.swift */,
+				F3DA3ABD241679660087306A /* TableView.swift */,
 			);
 			name = FormItems;
 			sourceTree = "<group>";
@@ -517,8 +517,8 @@
 				BA61C6BB2407B5050099A5F7 /* AppDelegate.swift in Sources */,
 				BA61C6F72407D8320099A5F7 /* StartPresenter.swift in Sources */,
 				F383E9FE240D8EE600A494AF /* LocationService.swift in Sources */,
+				F3DA3ABE241679660087306A /* TableView.swift in Sources */,
 				F3CBD23F240850DB00EBFA18 /* LoadingView.swift in Sources */,
-				F37EFF9D241412B40067539D /* TableView.swift in Sources */,
 				F3C7D67D241067F000CBBE5C /* HeaderCell.swift in Sources */,
 				F383EA00240D908400A494AF /* LocationServiceOutput.swift in Sources */,
 			);
