@@ -23,6 +23,23 @@ class WeatherForecastTests: XCTestCase {
 						 "Failed for \"\(fileName).json\"")
 	}
 
+	func testDecodeError() {
+		// arrange
+		let fileName = "3-error"
+		guard let fileData = readFile(fileName) else {
+			XCTFail("Can't read file \(fileName).")
+			return
+		}
+
+		// arrange & act
+		XCTAssertThrowsError(try JSONDecoder().decode(WeatherForecast.self, from: fileData)) { error in
+			// assert
+			guard error is ServerError else {
+				return XCTFail()
+			}
+		}
+	}
+
 	// MARK: - Helpers
 
 	private func readFile(_ fileName: String) -> Data? {

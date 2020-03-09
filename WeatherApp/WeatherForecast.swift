@@ -10,8 +10,9 @@ import Foundation
 
 
 struct WeatherForecast: Decodable, Equatable {
-	var cod: String?
-	var message: Int?
+	var cod: String
+	var messageString: String = ""
+	var message: Int
 	var cnt: Int?
 	var list: [List]
 	var city: City
@@ -26,12 +27,16 @@ struct WeatherForecast: Decodable, Equatable {
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
-
-		cod = try container.decode(String.self, forKey: .cod)
-		message = try container.decode(Int.self, forKey: .message)
-		cnt = try container.decode(Int.self, forKey: .cnt)
-		list = try container.decode([List].self, forKey: .list)
-		city = try container.decode(City.self, forKey: .city)
+		do {
+			message = try container.decode(Int.self, forKey: .message)
+			cod = try container.decode(String.self, forKey: .cod)
+			cnt = try container.decode(Int.self, forKey: .cnt)
+			list = try container.decode([List].self, forKey: .list)
+			city = try container.decode(City.self, forKey: .city)
+		} catch {
+			messageString = try container.decode(String.self, forKey: .message)
+			throw ServerError(message: messageString)
+		}
 	}
 }
 
