@@ -29,9 +29,10 @@ final class ScrollCell: UITableViewCell {
 		layout.scrollDirection = .horizontal
 		layout.estimatedItemSize = CGSize(width: 1, height: 1)
 		layout.itemSize = UICollectionViewFlowLayout.automaticSize
-		let frame = CGRect(x: 0, y: 0, width: 100, height: 150)
+		let frame = CGRect(x: 0, y: 0, width: 150, height: 150)
 		let collection = UICollectionView(frame: frame, collectionViewLayout: layout)
 		collection.backgroundColor = .clear
+		collection.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
 		collection.showsHorizontalScrollIndicator = true
 		collection.showsVerticalScrollIndicator = false
 		return collection

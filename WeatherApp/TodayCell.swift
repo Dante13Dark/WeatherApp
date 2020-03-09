@@ -27,6 +27,7 @@ final class TodayCell: UITableViewCell {
 		super.init(style: .value1, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
 		backgroundColor = .clear
+		detailTextLabel?.textColor = .black
 	}
 
 	required init?(coder aDecoder: NSCoder) {

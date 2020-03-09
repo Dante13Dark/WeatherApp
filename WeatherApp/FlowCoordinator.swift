@@ -30,8 +30,8 @@ extension FlowCoordinator: FlowCoordinatorProtocol {
 
 // MARK: - StartPresenterOutput
 extension FlowCoordinator: StartPresenterOutput {
-	func showLoader() {
-		router.set(loaderIsHidden: false)
+	func requestData() {
+		interactor.requestInfo()
 	}
 }
 
@@ -45,16 +45,16 @@ extension FlowCoordinator: InteractorOutput {
 	
 	func received(currentWeather: CurrentWeather) {
 		startPresenter?.present(currentWeather: currentWeather)
-		router.set(loaderIsHidden: true)
+		router.show(loaderIsHidden: true)
 	}
 
 	func received(weatherForecast: WeatherForecast) {
 		startPresenter?.present(weatherForecast: weatherForecast)
-		router.set(loaderIsHidden: true)
+		router.show(loaderIsHidden: true)
 	}
 
 	func received(error: RequestServiceError) {
-		self.router.set(loaderIsHidden: true)
+		self.router.show(loaderIsHidden: true)
 		self.router.showErrorResponse(error)
 	}
 }

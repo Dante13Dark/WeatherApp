@@ -14,5 +14,5 @@ protocol RouterInput {
 	func showErrorResponse(_ error: RequestServiceError)
 
 	/// Показать лоадер
-	func set(loaderIsHidden: Bool)
+	func show(loaderIsHidden: Bool)
 }

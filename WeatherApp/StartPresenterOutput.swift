@@ -8,5 +8,5 @@
 /// Протокол обработки событий и запросов презентера стартового экрана.
 protocol StartPresenterOutput {
 	/// Показать лоадер
-	func showLoader()
+	func requestData()
 }

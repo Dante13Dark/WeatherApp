@@ -24,7 +24,7 @@ final class StartPresenter {
 // MARK: - StartViewOutput
 extension StartPresenter: StartViewOutput {
 	func didLoad() {
-		output.showLoader()
+		output.requestData()
 	}
 }
 

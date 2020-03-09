@@ -9,6 +9,8 @@ import UIKit
 
 final class Router {
 
+	let loader: LoaderProtocol = Loader()
+
 	var assembly: Assembly
 
 	init(assembly: Assembly) {
@@ -19,8 +21,8 @@ final class Router {
 
 // MARK: - RouterInput
 extension Router: RouterInput {
-	func set(loaderIsHidden: Bool) {
-		assembly.set(loaderIsHidden: loaderIsHidden)
+	func show(loaderIsHidden: Bool) {
+		loader.set(loaderIsHidden: loaderIsHidden)
 	}
 
 	func showStartScreen() {

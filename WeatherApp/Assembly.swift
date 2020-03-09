@@ -11,8 +11,6 @@ import CoreLocation
 
 final class Assembly: NSObject {
 
-	let loader: LoaderProtocol = Loader()
-
 	var window: UIWindow?
 
 	var flowCoordinator: FlowCoordinatorProtocol {
@@ -57,10 +55,6 @@ final class Assembly: NSObject {
 		presenter.view = viewController
 
 		return viewController
-	}
-
-	func set(loaderIsHidden: Bool) {
-		loader.set(loaderIsHidden: loaderIsHidden)
 	}
 }
 

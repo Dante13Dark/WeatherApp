@@ -17,12 +17,8 @@ final class LocationService: NSObject {
 	override init() {
 		super.init()
 		locationManager.delegate = self
-		print("CURRENT LOCATION STATUS = \(CLLocationManager.authorizationStatus())")
+		print("CURRENT LOCATION STATUS = \(CLLocationManager.authorizationStatus().rawValue)")
 		locationManager.requestWhenInUseAuthorization()
-		if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
-			print("REQUEST LOCATION")
-			locationManager.requestLocation()
-		}
 	}
 }
 
@@ -38,10 +34,6 @@ extension LocationService: CLLocationManagerDelegate {
 
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 		print("location manager authorization status changed to \(status.rawValue)")
-		if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
-			print("REQUEST LOCATION")
-			locationManager.requestLocation()
-		}
 	}
 
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

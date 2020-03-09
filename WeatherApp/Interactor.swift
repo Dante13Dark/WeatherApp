@@ -32,7 +32,7 @@ final class Interactor {
 // MARK: - InteractorInput
 extension Interactor: InteractorInput {
 
-	func requestInfo(index: Int) {
+	func requestInfo() {
 		locationService.getCoord()
 	}
 
@@ -41,12 +41,12 @@ extension Interactor: InteractorInput {
 		getWeatherForecast(url: makeUrl(model: model, type: .forecast))
 	}
 
-	enum APIConstants: String {
+	private enum APIConstants: String {
 		case apiKey = "&appid=cfeae8c84fe84eba49d6279199a24b24"
 		case url = "https://api.openweathermap.org/data/2.5/"
 	}
 
-	enum RequestType: String {
+	private enum RequestType: String {
 		case weather = "weather?"
 		case forecast = "forecast?"
 	}
@@ -65,7 +65,6 @@ extension Interactor: InteractorInput {
 			return "\(APIConstants.url)\(RequestType.forecast)id=\(id)&units=metric\(APIConstants.apiKey)&lang=ru"
 		}
 	}
-
 
 	private func getCurrentWeather(url: String) {
 		requestService.run(url: url) { [weak self] (response: Result<CurrentWeather, RequestServiceError>) in
