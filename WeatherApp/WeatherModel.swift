@@ -57,22 +57,23 @@ class WeatherViewModel: NSObject {
 
 	init(weatherForecast: WeatherForecast) {
 		super.init()
-		let timezone = weatherForecast.city.timezone
-		var dayItems: [ForecastViewModelItem] = []
-		weatherForecast.list.forEach { (items) in
-			let date = makeDate(time: items.dt,
-								timezone: timezone,
-								format: "dd MMMM")
-			let time = makeDate(time: items.dt,
-								timezone: timezone,
-								format: "HH:00")
-			dayItems.append(ForecastViewModelItem(date: date,
-												  time: time,
-												  temp: makeTemp(temp: items.main.temp),
-												  icon: items.weather.first?.icon ?? ""))
+		if let timezone = weatherForecast.city.timezone {
+			var dayItems: [ForecastViewModelItem] = []
+			weatherForecast.list.forEach { (items) in
+				let date = makeDate(time: items.dt,
+									timezone: timezone,
+									format: "dd MMMM")
+				let time = makeDate(time: items.dt,
+									timezone: timezone,
+									format: "HH:00")
+				dayItems.append(ForecastViewModelItem(date: date,
+													  time: time,
+													  temp: makeTemp(temp: items.main.temp),
+													  icon: items.weather.first?.icon ?? ""))
+			}
+			
+			items.append(ScrollViewModelItem(items: dayItems))
 		}
-
-		items.append(ScrollViewModelItem(items: dayItems))
 	}
 
 	private enum WindDirection: String {

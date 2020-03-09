@@ -9,8 +9,6 @@ import UIKit
 
 final class Router {
 
-	let loader: LoaderProtocol = Loader()
-
 	var assembly: Assembly
 
 	init(assembly: Assembly) {
@@ -21,10 +19,6 @@ final class Router {
 
 // MARK: - RouterInput
 extension Router: RouterInput {
-	func show(loaderIsHidden: Bool) {
-		loader.set(loaderIsHidden: loaderIsHidden)
-	}
-
 	func showStartScreen() {
 		let viewController = assembly.makeStartScreen()
 		let navigationController = UINavigationController(rootViewController: viewController)

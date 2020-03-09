@@ -12,7 +12,4 @@ protocol RouterInput {
 
 	/// Показать сообщение об ошибке пришедшее с сервера.
 	func showErrorResponse(_ error: RequestServiceError)
-
-	/// Показать лоадер
-	func show(loaderIsHidden: Bool)
 }

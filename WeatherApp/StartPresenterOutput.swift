@@ -7,6 +7,6 @@
 
 /// Протокол обработки событий и запросов презентера стартового экрана.
 protocol StartPresenterOutput {
-	/// Показать лоадер
-	func requestData()
+	/// Запросить информацию
+	func requestInfo()
 }

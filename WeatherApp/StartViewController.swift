@@ -9,6 +9,8 @@ import UIKit
 
 class StartViewController: UIViewController {
 
+	let loader: LoaderProtocol = Loader()
+
 	lazy var tableView = TableView(frame: .zero, style: .grouped)
 
 	var output: StartViewOutput
@@ -49,6 +51,10 @@ class StartViewController: UIViewController {
 }
 
 extension StartViewController: StartViewInput {
+	func set(loaderIsHidden: Bool) {
+		loader.set(loaderIsHidden: loaderIsHidden)
+	}
+
 	func set(model: [WeatherViewModelItem]) {
 		self.tableView.model = model
 	}

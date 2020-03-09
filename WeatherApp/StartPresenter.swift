@@ -24,20 +24,27 @@ final class StartPresenter {
 // MARK: - StartViewOutput
 extension StartPresenter: StartViewOutput {
 	func didLoad() {
-		output.requestData()
+		output.requestInfo()
 	}
 }
 
 // MARK: - StartPresenterInput
 extension StartPresenter: StartPresenterInput {
-	func present(weatherForecast: WeatherForecast) {
-		let model = WeatherViewModel(weatherForecast: weatherForecast).items
-		view?.set(model: model)
-	}
-
-	func present(currentWeather: CurrentWeather) {
-		let model = WeatherViewModel(currentWeather: currentWeather).items
-		view?.set(city: currentWeather.name)
-		view?.set(model: model)
+	func present(model: PresentationModel<Model>) {
+		switch model {
+		case .loader:
+			view?.set(loaderIsHidden: false)
+		case .responseModel(let model):
+			switch model {
+			case let .currentWeather(currentWeather):
+				let model = WeatherViewModel(currentWeather: currentWeather).items
+				view?.set(model: model)
+				view?.set(city: currentWeather.name)
+			case let .weatherForecast(weatherForecast):
+				let model = WeatherViewModel(weatherForecast: weatherForecast).items
+				view?.set(model: model)
+			}
+			view?.set(loaderIsHidden: true)
+		}
 	}
 }

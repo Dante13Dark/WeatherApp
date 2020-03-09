@@ -1,0 +1,43 @@
+{
+	"coord":{
+		"lon":-122.03,
+		"lat":37.33
+	},
+	"weather":[
+		{
+			"id":803,
+			"main":"Clouds",
+			"description":"облачно с прояснениями",
+			"icon":"04d"
+		}
+	],
+	"base":"stations",
+	"main":{
+		"temp":15.05,
+		"feels_like":13.55,
+		"temp_min":12.78,
+		"temp_max":16.67,
+		"pressure":1020,
+		"humidity":58
+	},
+	"visibility":16093,
+	"wind":{
+		"speed":1.1,
+		"deg":61
+	},
+	"clouds":{
+		"all":75
+	},
+	"dt":1583779360,
+	"sys":{
+		"type":1,
+		"id":5845,
+		"country":"US",
+		"sunrise":1583764031,
+		"sunset":1583806200
+	},
+	"timezone":-25200,
+	"id":5341145,
+	"name":"Купертино",
+	"cod":200
+}

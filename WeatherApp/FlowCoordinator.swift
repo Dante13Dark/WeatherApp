@@ -30,7 +30,8 @@ extension FlowCoordinator: FlowCoordinatorProtocol {
 
 // MARK: - StartPresenterOutput
 extension FlowCoordinator: StartPresenterOutput {
-	func requestData() {
+	func requestInfo() {
+		startPresenter?.present(model: .loader)
 		interactor.requestInfo()
 	}
 }
@@ -38,23 +39,16 @@ extension FlowCoordinator: StartPresenterOutput {
 
 // MARK: - InteractorOutput
 extension FlowCoordinator: InteractorOutput {
-
-	func received(model: Model) {
-		interactor.requestInfo(model: model)
-	}
 	
 	func received(currentWeather: CurrentWeather) {
-		startPresenter?.present(currentWeather: currentWeather)
-		router.show(loaderIsHidden: true)
+		startPresenter?.present(model: .responseModel(.currentWeather(currentWeather)))
 	}
 
 	func received(weatherForecast: WeatherForecast) {
-		startPresenter?.present(weatherForecast: weatherForecast)
-		router.show(loaderIsHidden: true)
+		startPresenter?.present(model: .responseModel(.weatherForecast(weatherForecast)))
 	}
 
 	func received(error: RequestServiceError) {
-		self.router.show(loaderIsHidden: true)
 		self.router.showErrorResponse(error)
 	}
 }

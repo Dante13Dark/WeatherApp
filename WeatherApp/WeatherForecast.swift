@@ -9,8 +9,7 @@
 import Foundation
 
 
-struct WeatherForecast: Decodable {
-
+struct WeatherForecast: Decodable, Equatable {
 	var cod: String?
 	var message: Int?
 	var cnt: Int?
@@ -36,96 +35,72 @@ struct WeatherForecast: Decodable {
 	}
 }
 
-extension WeatherForecast {
-	struct City: Decodable {
-		var id: Int
-		var name: String
-		var coord: Coord
-		var country: String
-		var timezone: Int
-		var sunrise: Int
-		var sunset: Int
+struct List: Decodable, Equatable {
 
-		private enum CodingKeys: String, CodingKey {
-			case id
-			case name
-			case coord
-			case country
-			case timezone
-			case sunrise
-			case sunset
-		}
+	var dt: Int
+	var main: MainClass
+	var weather: [Weather]
+	var clouds: Clouds
+	var wind: Wind
+	var sys: ForeSys?
+	var dt_txt: String?
+
+	private enum CodingKeys: String, CodingKey {
+		case dt
+		case main
+		case weather
+		case clouds
+		case wind
+		case sys
+		case dt_txt = "dt_txt"
 	}
 }
 
-extension WeatherForecast {
-	struct List: Decodable {
 
-		var dt: Int
-		var main: MainClass
-		var weather: [Weather]
-		var clouds: Clouds
-		var wind: Wind
-		var sys: ForeSys?
-		var dt_txt: String?
+struct MainClass: Decodable, Equatable {
+	var temp: Double
+	var tempMin: Double
+	var tempMax: Double
+	var pressure: Int
+	var sea_level: Int?
+	var grnd_level: Int?
+	var humidity: Int
+	var temp_kf: Double?
 
-		private enum CodingKeys: String, CodingKey {
-			case dt
-			case main
-			case weather
-			case clouds
-			case wind
-			case sys
-			case dt_txt = "dt_txt"
-		}
+	private enum CodingKeys: String, CodingKey {
+		case temp = "temp"
+		case tempMin = "temp_min"
+		case tempMax = "temp_max"
+		case pressure = "pressure"
+		case sea_level = "sea_level"
+		case grnd_level = "grnd_level"
+		case humidity = "humidity"
+		case temp_kf = "temp_kf"
 	}
 }
 
-extension WeatherForecast.List {
-	struct MainClass: Decodable {
-		var temp: Double
-		var tempMin: Double
-		var tempMax: Double
-		var pressure: Int
-		var sea_level: Int?
-		var grnd_level: Int?
-		var humidity: Int
-		var temp_kf: Double?
+struct Rain: Decodable, Equatable {
+	var threeH: Double?
 
-		private enum CodingKeys: String, CodingKey {
-			case temp = "temp"
-			case tempMin = "temp_min"
-			case tempMax = "temp_max"
-			case pressure = "pressure"
-			case sea_level = "sea_level"
-			case grnd_level = "grnd_level"
-			case humidity = "humidity"
-			case temp_kf = "temp_kf"
-		}
+	private enum CodingKeys: String, CodingKey {
+		case threeH = "3h"
 	}
 
-	struct Rain: Decodable{
-		var threeH: Double?
+}
 
-		private enum CodingKeys: String, CodingKey {
-			case threeH = "3h"
-		}
+struct ForecastSys: Decodable, Equatable {
+	var sys: String?
 
-	}
-
-	class ForecastSys: Decodable{
-		var sys: String?
-
-		private enum CodingKeys: String, CodingKey {
-			case sys
-		}
-	}
-
-	struct ForeSys: Decodable{
-		var pod: String?
-
-		private enum CodingKeys: String, CodingKey {
-			case pod
-		}
+	private enum CodingKeys: String, CodingKey {
+		case sys
 	}
 }
+
+struct ForeSys: Decodable, Equatable {
+	var pod: String?
+
+	private enum CodingKeys: String, CodingKey {
+		case pod
+	}
+}
+

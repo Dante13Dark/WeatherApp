@@ -15,19 +15,14 @@ final class Interactor {
 
 	private let requestService: RequestServiceProtocol
 
-	private let dataService: DataServiceProtocol
-
 	private let locationService: LocationServiceInput
 
 	init(requestService: RequestServiceProtocol,
-		 dataService: DataServiceProtocol,
 		 locationService: LocationServiceInput) {
 		self.requestService = requestService
-		self.dataService = dataService
 		self.locationService = locationService
 	}
 }
-
 
 // MARK: - InteractorInput
 extension Interactor: InteractorInput {
@@ -36,9 +31,9 @@ extension Interactor: InteractorInput {
 		locationService.getCoord()
 	}
 
-	func requestInfo(model: Model) {
-		getCurrentWeather(url: makeUrl(model: model, type: .weather))
-		getWeatherForecast(url: makeUrl(model: model, type: .forecast))
+	func requestInfo(coord: Coord) {
+		getCurrentWeather(url: makeUrl(coord: coord, type: .weather))
+		getWeatherForecast(url: makeUrl(coord: coord, type: .forecast))
 	}
 
 	private enum APIConstants: String {
@@ -51,18 +46,12 @@ extension Interactor: InteractorInput {
 		case forecast = "forecast?"
 	}
 
-	private func makeUrl(model: Model, type: RequestType) -> String {
-		switch (model, type) {
-		case (let .location(coord), .weather):
+	private func makeUrl(coord: Coord, type: RequestType) -> String {
+		switch (type) {
+		case .weather:
 			return "\(APIConstants.url.rawValue)\(RequestType.weather.rawValue)lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
-		case (let .location(coord), .forecast):
+		case .forecast:
 			return "\(APIConstants.url.rawValue)\(RequestType.forecast.rawValue)lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
-		case (let .city(city), .weather):
-			let id = Int(city.id)
-			return "\(APIConstants.url.rawValue)\(RequestType.weather.rawValue)id=\(id)&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
-		case (let .city(city), .forecast):
-			let id = Int(city.id)
-			return "\(APIConstants.url)\(RequestType.forecast)id=\(id)&units=metric\(APIConstants.apiKey)&lang=ru"
 		}
 	}
 
@@ -95,6 +84,6 @@ extension Interactor: InteractorInput {
 
 extension Interactor: LocationServiceOutput {
 	func didUpdate(coord: Coord) {
-		output?.received(model: Model.location(coord))
+		requestInfo(coord: coord)
 	}
 }

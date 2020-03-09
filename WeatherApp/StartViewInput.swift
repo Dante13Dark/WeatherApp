@@ -11,5 +11,8 @@ protocol StartViewInput: AnyObject {
 	func set(city: String)
 	/// Установить модель
 	func set(model: [WeatherViewModelItem])
+	/// Установить видимость лоадера
+	/// - Parameter loaderIsHidden: Состояние лоадера: если true, то скрыт.
+	func set(loaderIsHidden: Bool)
 }
 

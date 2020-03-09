@@ -25,10 +25,8 @@ final class Assembly: NSObject {
 		let router = Router(assembly: self)
 
 		let requestService = RequestService()
-		let dataService = DataService()
-		
+
 		let interactor = Interactor(requestService: requestService,
-									dataService: dataService,
 									locationService: locationService)
 		locationService.output = interactor
 		let flowCoordinator = FlowCoordinator(interactor: interactor, router: router)
@@ -56,10 +54,5 @@ final class Assembly: NSObject {
 
 		return viewController
 	}
-}
-
-enum Model {
-	case location(Coord)
-	case city(City)
 }
 

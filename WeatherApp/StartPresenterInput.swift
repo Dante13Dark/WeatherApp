@@ -7,8 +7,10 @@
 
 /// Протокол управления презентером стартового экрана.
 protocol StartPresenterInput: AnyObject {
-	// Установить модель
-	func present(currentWeather: CurrentWeather)
-	// Установить модель
-	func present(weatherForecast: WeatherForecast)
+//	// Презентовать модель текущей погоды
+//	func present(currentWeather: PresentationModel<CurrentWeather>)
+//	// Презентовать модель сводки о погоде
+//	func present(weatherForecast: PresentationModel<WeatherForecast>)
+	// Презентовать модель сводки о погоде
+	func present(model: PresentationModel<Model>)
 }

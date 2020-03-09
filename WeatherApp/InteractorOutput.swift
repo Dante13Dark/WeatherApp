@@ -15,7 +15,4 @@ protocol InteractorOutput: AnyObject {
 
 	/// Получена ошибка.
 	func received(error: RequestServiceError)
-
-	/// Получена модель данных
-	func received(model: Model)
 }

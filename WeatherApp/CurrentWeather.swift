@@ -5,6 +5,10 @@
 //  Created by Yaroslav Tutushkin on 25.02.2020.
 //  Copyright © 2020 Yaroslav Tutushkin. All rights reserved.
 //
+enum Model: Equatable {
+	case currentWeather(CurrentWeather)
+	case weatherForecast(WeatherForecast)
+}
 
 struct CurrentWeather: Decodable, Equatable {
 
@@ -130,7 +134,7 @@ struct Sys: Decodable, Equatable {
 }
 
 // MARK: - Weather
-struct Weather: Decodable, Equatable{
+struct Weather: Decodable, Equatable {
 	var id: Int
 	var main: String
 	var weatherDescription: String

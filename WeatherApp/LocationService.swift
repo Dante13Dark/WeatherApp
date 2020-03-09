@@ -8,6 +8,8 @@
 import CoreLocation
 
 final class LocationService: NSObject {
+
+	private var needUpdate: Bool = false
 	// MARK: Location
 
 	let locationManager = CLLocationManager()
@@ -26,6 +28,7 @@ extension LocationService: LocationServiceInput {
 	func getCoord() {
 		if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
 			print("DELEGATE REQUEST LOCATION")
+			needUpdate = true
 			locationManager.requestLocation()
 		}
 	}
@@ -40,7 +43,10 @@ extension LocationService: CLLocationManagerDelegate {
 		if let location = locations.first {
 			let coord = Coord(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
 			print("ЛОКАЦИЯ БЫЛА ОБНОВЛЕНА НА \(coord.lat) \(coord.lon)")
-			output?.didUpdate(coord: coord)
+			if needUpdate {
+				needUpdate = false
+				output?.didUpdate(coord: coord)
+			}
 		}
 	}
 
