@@ -31,7 +31,7 @@ extension FlowCoordinator: FlowCoordinatorProtocol {
 // MARK: - StartPresenterOutput
 extension FlowCoordinator: StartPresenterOutput {
 	func requestInfo() {
-		startPresenter?.present(model: .loader)
+		startPresenter?.present(model: .loader(loaderIsHidden: false))
 		interactor.requestInfo()
 	}
 }
@@ -49,6 +49,7 @@ extension FlowCoordinator: InteractorOutput {
 	}
 
 	func received(error: RequestServiceError) {
-		self.router.showErrorResponse(error)
+		startPresenter?.present(model: .loader(loaderIsHidden: true))
+		router.showErrorResponse(error)
 	}
 }

@@ -13,8 +13,7 @@ final class RouterInputSpy {
 		static func == (lhs: RouterInputSpy.Call, rhs: RouterInputSpy.Call) -> Bool {
 			switch (lhs, rhs) {
 			case (.showStartScreen, .showStartScreen),
-				 (.showErrorResponse,.showErrorResponse),
-				 (.show,.show):
+				 (.showErrorResponse,.showErrorResponse):
 				return true
 			default:
 				return false
@@ -24,7 +23,6 @@ final class RouterInputSpy {
 		case none
 		case showStartScreen
 		case showErrorResponse(RequestServiceError)
-		case show(loaderIsHidden: Bool)
 	}
 
 	private(set) var latestCall: Call = .none
@@ -38,9 +36,5 @@ extension RouterInputSpy: RouterInput {
 
 	func showErrorResponse(_ error: RequestServiceError) {
 		latestCall = .showErrorResponse(error)
-	}
-
-	func show(loaderIsHidden: Bool) {
-		latestCall = .show(loaderIsHidden: loaderIsHidden)
 	}
 }

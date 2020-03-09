@@ -8,7 +8,7 @@
 /// Общая модель презентеров.
 enum PresentationModel<ResponseModelType: Equatable>: Equatable {
 	/// Началась загрузка
-	case loader
+	case loader(loaderIsHidden: Bool)
 	/// Получили данные
 	case responseModel(ResponseModelType)
 }

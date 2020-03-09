@@ -59,13 +59,13 @@ class FlowCoordinatorTests: XCTestCase {
 		coordinator.requestInfo()
 		
 		// assert
-		XCTAssertEqual(routerInputSpy.latestCall, RouterInputSpy.Call.show(loaderIsHidden: false))
+		XCTAssertEqual(startPresenterInputSpy.presentedModel, PresentationModel.loader(loaderIsHidden: false))
 		XCTAssertEqual(interactorInputSpy.latestCall, InteractorInputSpy.Call.requestInfo)
 	}
 
 	// MARK: - InteractorOutput
 
-	func testRecivedCurrentWeather() {
+	func testReceivedCurrentWeather() {
 		// arrange
 		guard let currentWeather = try? CurrentWeather(fileName: "1-currentWeather") else {
 			XCTFail("Can't mock CurrentWeather")
@@ -75,6 +75,32 @@ class FlowCoordinatorTests: XCTestCase {
 		coordinator.received(currentWeather: currentWeather)
 
 		// assert
-		XCTAssertEqual(startPresenterInputSpy.presentedCurrentWeather, PresentationModel.responseModel(currentWeather))
+		XCTAssertEqual(startPresenterInputSpy.presentedModel, PresentationModel.responseModel(.currentWeather(currentWeather)))
+	}
+
+	func testReceivedWeatherForecast() {
+		// arrange
+		guard let weatherForecast = try? WeatherForecast(fileName: "2-weatherForecast") else {
+			XCTFail("Can't mock CurrentWeather")
+			return
+		}
+		// act
+		coordinator.received(weatherForecast: weatherForecast)
+
+		// assert
+		XCTAssertEqual(startPresenterInputSpy.presentedModel, PresentationModel.responseModel(.weatherForecast(weatherForecast)))
+	}
+
+	func testReceivedError() {
+		// arrange
+		let error = RequestServiceError.serverError(.init(message: "ALOHA"))
+
+		// act
+		coordinator.received(error: error)
+
+		// assert
+		XCTAssertEqual(startPresenterInputSpy.presentedModel, PresentationModel.loader(loaderIsHidden: true))
+		XCTAssertEqual(routerInputSpy.latestCall, RouterInputSpy.Call.showErrorResponse(error))
+
 	}
 }

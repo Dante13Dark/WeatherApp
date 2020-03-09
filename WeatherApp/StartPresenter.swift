@@ -32,8 +32,8 @@ extension StartPresenter: StartViewOutput {
 extension StartPresenter: StartPresenterInput {
 	func present(model: PresentationModel<Model>) {
 		switch model {
-		case .loader:
-			view?.set(loaderIsHidden: false)
+		case let .loader(loaderIsHidden: value):
+			view?.set(loaderIsHidden: value)
 		case .responseModel(let model):
 			switch model {
 			case let .currentWeather(currentWeather):

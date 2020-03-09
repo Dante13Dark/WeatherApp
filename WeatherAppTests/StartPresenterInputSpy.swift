@@ -8,16 +8,11 @@
 @testable import WeatherApp
 
 final class StartPresenterInputSpy {
-	private(set) var presentedCurrentWeather: PresentationModel<CurrentWeather>?
-	private(set) var presentedWeatherForecast: PresentationModel<WeatherForecast>?
+	private(set) var presentedModel: PresentationModel<Model>?
 }
 
 extension StartPresenterInputSpy: StartPresenterInput {
-	func present(currentWeather: CurrentWeather) {
-		presentedCurrentWeather = currentWeather
-	}
-
-	func present(weatherForecast: WeatherForecast) {
-		presentedWeatherForecast = weatherForecast
+	func present(model: PresentationModel<Model>) {
+		presentedModel = model
 	}
 }
