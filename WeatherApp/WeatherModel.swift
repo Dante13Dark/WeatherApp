@@ -25,16 +25,16 @@ class WeatherViewModel: NSObject {
 	init(currentWeather: CurrentWeather){
 		super.init()
 		let header = HeaderViewModelItem(temp: makeTemp(temp: currentWeather.main.temp),
-									 feelsLike: makeTemp(temp: currentWeather.main.feelsLike),
-									 desc: currentWeather.weather.first?.weatherDescription.capitalized ?? "",
-									 iconName: currentWeather.weather.first?.icon ?? "")
+										 feelsLike: makeTemp(temp: currentWeather.main.feelsLike),
+										 desc: currentWeather.weather.first?.weatherDescription.capitalized ?? "",
+										 iconName: currentWeather.weather.first?.icon ?? "")
 		items.append(header)
 		let today = TodayViewModelItem(date: makeDate(time: currentWeather.dt,
-												  timezone: currentWeather.timezone,
-												  format: "dd MMMM"),
-								   tempMin: makeTemp(temp: currentWeather.main.tempMin),
-								   tempMax: makeTemp(temp: currentWeather.main.tempMax),
-								   iconName: currentWeather.weather.first?.icon ?? "")
+													  timezone: currentWeather.timezone,
+													  format: "dd MMMM"),
+									   tempMin: makeTemp(temp: currentWeather.main.tempMin),
+									   tempMax: makeTemp(temp: currentWeather.main.tempMax),
+									   iconName: currentWeather.weather.first?.icon ?? "")
 		items.append(today)
 		let detailItems = makeDetailItems(currentWeather: currentWeather)
 		detailItems.forEach { (arg0) in
@@ -48,12 +48,18 @@ class WeatherViewModel: NSObject {
 	init(weatherForecast: WeatherForecast) {
 		super.init()
 		let timezone = weatherForecast.city.timezone
-		let dayItems: [ForecastViewModelItem] = weatherForecast.list.map { (items) in
-			ForecastViewModelItem(time: makeDate(time: items.dt,
-												 timezone: timezone,
-												 format: "dd MMMM HH"),
-								  temp: makeTemp(temp: items.main.temp),
-								  icon: items.weather.first?.icon ?? "")
+		var dayItems: [ForecastViewModelItem] = []
+		weatherForecast.list.forEach { (items) in
+			let date = makeDate(time: items.dt,
+								timezone: timezone,
+								format: "dd MMMM")
+			let time = makeDate(time: items.dt,
+								timezone: timezone,
+								format: "HH")
+			dayItems.append(ForecastViewModelItem(date: date,
+												  time: time,
+												  temp: makeTemp(temp: items.main.temp),
+												  icon: items.weather.first?.icon ?? ""))
 		}
 
 		items.append(ScrollViewModelItem(items: dayItems))
@@ -129,7 +135,10 @@ class WeatherViewModel: NSObject {
 		items.append(("Давление", makePressure(pressure: currentWeather.main.pressure)))
 		items.append(("Влажность", "\(currentWeather.main.humidity) %"))
 		items.append(("Видимость", String(format: "%.1f км", Double(currentWeather.visibility / 1000))))
-		let windDirection = WindDirection(currentWeather.wind.deg).rawValue
+		var windDirection = ""
+		if let degree = currentWeather.wind.deg {
+			windDirection = WindDirection(degree).rawValue
+		}
 		let windSpeed = String(format: "%.1f м/с", currentWeather.wind.speed)
 		items.append(("Ветер", "\(windDirection) \(windSpeed)" ))
 		items.append(("Облачноcть", "\(currentWeather.clouds.all) %"))
@@ -203,11 +212,13 @@ struct DetailsViewModelItem: WeatherViewModelItem {
 
 struct ForecastViewModelItem {
 
+	var date: String
 	var time: String
 	var temp: String
 	var icon: String
 
-	init(time: String, temp: String, icon: String) {
+	init(date: String, time: String, temp: String, icon: String) {
+		self.date = date
 		self.time = time
 		self.temp = temp
 		self.icon = icon

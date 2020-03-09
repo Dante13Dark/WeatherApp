@@ -14,6 +14,7 @@ final class ForecastCell: UICollectionViewCell {
 			guard item != nil else {
 				return
 			}
+			date.text = item?.date
 			time.text = item?.time
 			temp.text = item?.temp
 			icon.image = UIImage(named: item?.icon ?? "")
@@ -32,14 +33,20 @@ final class ForecastCell: UICollectionViewCell {
 		return label
 	}()
 
+	lazy var date: UILabel = {
+		let date = UILabel()
+		date.textColor = .black
+		return date
+	}()
+
 	lazy var time: UILabel = {
-		let desc = UILabel()
-		desc.textColor = .black
-		return desc
+		let time = UILabel()
+		time.textColor = .black
+		return time
 	}()
 
 	lazy var stack: UIStackView = {
-		let stack = UIStackView(arrangedSubviews: [time, icon, temp])
+		let stack = UIStackView(arrangedSubviews: [date, time, icon, temp])
 		stack.axis = .vertical
 		stack.alignment = .center
 		stack.spacing = 5.0

@@ -147,7 +147,7 @@ struct Weather: Decodable, Equatable{
 // MARK: - Wind
 struct Wind: Decodable, Equatable {
 	var speed: Double
-	var deg: Int
+	var deg: Int?
 
 	private enum CodingKeys: String, CodingKey {
 		case speed

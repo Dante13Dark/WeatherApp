@@ -27,7 +27,8 @@ final class ScrollCell: UITableViewCell {
 	lazy var collectionView: UICollectionView = {
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .horizontal
-		layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+		layout.estimatedItemSize = CGSize(width: 1, height: 1)
+		layout.itemSize = UICollectionViewFlowLayout.automaticSize
 		let frame = CGRect(x: 0, y: 0, width: 100, height: 100)
 		let collection = UICollectionView(frame: frame, collectionViewLayout: layout)
 		collection.backgroundColor = .clear
@@ -51,15 +52,17 @@ final class ScrollCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+		return collectionView.collectionViewLayout.collectionViewContentSize
+	}
+
 	func setupLayout() {
-		let height = collectionView.collectionViewLayout.collectionViewContentSize.height
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(collectionView)
 		NSLayoutConstraint.activate([
 			collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
 			collectionView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
 			collectionView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-			collectionView.heightAnchor.constraint(equalToConstant: height),
 			collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			])
 	}
