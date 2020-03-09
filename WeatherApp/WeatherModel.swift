@@ -19,6 +19,16 @@ protocol WeatherViewModelItem {
 	var rowCount: Int { get }
 }
 
+extension String {
+	func capitalizingFirstLetter() -> String {
+		return prefix(1).capitalized + dropFirst()
+	}
+
+	mutating func capitalizeFirstLetter() {
+		self = self.capitalizingFirstLetter()
+	}
+}
+
 class WeatherViewModel: NSObject {
 	var items = [WeatherViewModelItem]()
 
@@ -26,7 +36,7 @@ class WeatherViewModel: NSObject {
 		super.init()
 		let header = HeaderViewModelItem(temp: makeTemp(temp: currentWeather.main.temp),
 										 feelsLike: makeTemp(temp: currentWeather.main.feelsLike),
-										 desc: currentWeather.weather.first?.weatherDescription.capitalized ?? "",
+										 desc: currentWeather.weather.first?.weatherDescription.capitalizingFirstLetter() ?? "",
 										 iconName: currentWeather.weather.first?.icon ?? "")
 		items.append(header)
 		let today = TodayViewModelItem(date: makeDate(time: currentWeather.dt,
@@ -55,7 +65,7 @@ class WeatherViewModel: NSObject {
 								format: "dd MMMM")
 			let time = makeDate(time: items.dt,
 								timezone: timezone,
-								format: "HH")
+								format: "HH:00")
 			dayItems.append(ForecastViewModelItem(date: date,
 												  time: time,
 												  temp: makeTemp(temp: items.main.temp),

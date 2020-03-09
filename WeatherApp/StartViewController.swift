@@ -25,7 +25,7 @@ class StartViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = .cyan
+		view.backgroundColor = UIColor(red: 8/255, green: 166/255, blue: 82/255, alpha: 1)
 
 		setupLayout()
 

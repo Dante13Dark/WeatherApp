@@ -33,7 +33,7 @@ final class HeaderCell: UITableViewCell {
 
 	lazy var temp: UILabel = {
 		let label = UILabel()
-		label.font = label.font.withSize(120)
+		label.font = label.font.withSize(100)
 		label.textColor = .black
 		return label
 	}()
@@ -41,7 +41,7 @@ final class HeaderCell: UITableViewCell {
 	lazy var desc: UILabel = {
 		let desc = UILabel()
 		desc.numberOfLines = 0
-		desc.font = desc.font.withSize(40)
+		desc.font = desc.font.withSize(20)
 		desc.textColor = .black
 		return desc
 	}()
@@ -49,7 +49,7 @@ final class HeaderCell: UITableViewCell {
 	lazy var feelsLike: UILabel = {
 		let feelsLike = UILabel()
 		feelsLike.numberOfLines = 0
-		feelsLike.font = desc.font.withSize(40)
+		feelsLike.font = desc.font.withSize(20)
 		feelsLike.textColor = .black
 		return feelsLike
 	}()
