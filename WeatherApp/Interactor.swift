@@ -37,24 +37,56 @@ extension Interactor: InteractorInput {
 	}
 
 	func requestInfo(model: Model) {
-		switch model {
-		case .city(let city):
+		getCurrentWeather(url: makeUrl(model: model, type: .weather))
+		getWeatherForecast(url: makeUrl(model: model, type: .forecast))
+	}
+
+	enum APIConstants: String {
+		case apiKey = "&appid=cfeae8c84fe84eba49d6279199a24b24"
+		case url = "https://api.openweathermap.org/data/2.5/"
+	}
+
+	enum RequestType: String {
+		case weather = "weather?"
+		case forecast = "forecast?"
+	}
+
+	private func makeUrl(model: Model, type: RequestType) -> String {
+		switch (model, type) {
+		case (let .location(coord), .weather):
+			return "\(APIConstants.url.rawValue)\(RequestType.weather.rawValue)lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+		case (let .location(coord), .forecast):
+			return "\(APIConstants.url.rawValue)\(RequestType.forecast.rawValue)lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+		case (let .city(city), .weather):
 			let id = Int(city.id)
-			let url = "https://api.openweathermap.org/data/2.5/weather?id=\(id)&units=metric&appid=cfeae8c84fe84eba49d6279199a24b24&lang=ru"
-			run(url: url)
-		case .location(let coord):
-			let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric&appid=cfeae8c84fe84eba49d6279199a24b24&lang=ru"
-			run(url: url)
+			return "\(APIConstants.url.rawValue)\(RequestType.weather.rawValue)id=\(id)&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+		case (let .city(city), .forecast):
+			let id = Int(city.id)
+			return "\(APIConstants.url)\(RequestType.forecast)id=\(id)&units=metric\(APIConstants.apiKey)&lang=ru"
 		}
 	}
 
-	private func run(url: String) {
+
+	private func getCurrentWeather(url: String) {
 		requestService.run(url: url) { [weak self] (response: Result<CurrentWeather, RequestServiceError>) in
 			guard let self = self else { return }
 			switch response {
 			case let .success(result):
 				print("MODEL: \(result)")
 				self.output?.received(currentWeather: result)
+			case let .failure(error):
+				self.output?.received(error: error)
+			}
+		}
+	}
+
+	private func getWeatherForecast(url: String) {
+		requestService.run(url: url) { [weak self] (response: Result<WeatherForecast, RequestServiceError>) in
+			guard let self = self else { return }
+			switch response {
+			case let .success(result):
+				print("MODEL: \(result)")
+				self.output?.received(weatherForecast: result)
 			case let .failure(error):
 				self.output?.received(error: error)
 			}

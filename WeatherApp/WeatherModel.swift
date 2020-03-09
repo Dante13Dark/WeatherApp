@@ -11,6 +11,7 @@ enum WeatherViewModelItemType {
 	case header
 	case detail
 	case today
+	case forecast
 }
 
 protocol WeatherViewModelItem {
@@ -42,6 +43,20 @@ class WeatherViewModel: NSObject {
 			let detail = DetailsViewModelItem(title: key, detail: value)
 			items.append(detail)
 		}
+	}
+
+	init(weatherForecast: WeatherForecast) {
+		super.init()
+		let timezone = weatherForecast.city.timezone
+		let dayItems: [ForecastViewModelItem] = weatherForecast.list.map { (items) in
+			ForecastViewModelItem(time: makeDate(time: items.dt,
+												 timezone: timezone,
+												 format: "dd MMMM HH"),
+								  temp: makeTemp(temp: items.main.temp),
+								  icon: items.weather.first?.icon ?? "")
+		}
+
+		items.append(ScrollViewModelItem(items: dayItems))
 	}
 
 	private enum WindDirection: String {
@@ -183,5 +198,34 @@ struct DetailsViewModelItem: WeatherViewModelItem {
 	init(title: String, detail: String) {
 		self.title = title
 		self.detail = detail
+	}
+}
+
+struct ForecastViewModelItem {
+
+	var time: String
+	var temp: String
+	var icon: String
+
+	init(time: String, temp: String, icon: String) {
+		self.time = time
+		self.temp = temp
+		self.icon = icon
+	}
+}
+
+struct ScrollViewModelItem: WeatherViewModelItem {
+	var type: WeatherViewModelItemType {
+		return .forecast
+	}
+
+	var rowCount: Int {
+		return 1
+	}
+
+	var items: [ForecastViewModelItem]
+
+	init(items: [ForecastViewModelItem]) {
+		self.items = items
 	}
 }

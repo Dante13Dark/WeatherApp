@@ -36,12 +36,14 @@ extension Router: RouterInput {
 	}
 
 	func showErrorResponse(_ error: RequestServiceError) {
-		let alert = UIAlertController(title: "Ошибка!",
-									  message: error.localizedDescription,
-									  preferredStyle: .alert)
-		let cancel = UIAlertAction(title: "Ок",
-								   style: .cancel)
-		alert.addAction(cancel)
-		assembly.window?.rootViewController?.present(alert, animated: true)
+		DispatchQueue.main.async {
+			let alert = UIAlertController(title: "Ошибка!",
+										  message: error.localizedDescription,
+										  preferredStyle: .alert)
+			let cancel = UIAlertAction(title: "Ок",
+									   style: .cancel)
+			alert.addAction(cancel)
+			self.assembly.window?.rootViewController?.present(alert, animated: true)
+		}
 	}
 }

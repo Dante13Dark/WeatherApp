@@ -14,8 +14,8 @@ struct WeatherForecast: Decodable {
 	var cod: String?
 	var message: Int?
 	var cnt: Int?
-	var list: [List]?
-	var city: City?
+	var list: [List]
+	var city: City
 
 	private enum CodingKeys: String, CodingKey {
 		case cod
@@ -38,13 +38,13 @@ struct WeatherForecast: Decodable {
 
 extension WeatherForecast {
 	struct City: Decodable {
-		var id: Int?
-		var name: String?
-		var coord: Coordinates?
-		var country: String?
-		var timezone: Int?
-		var sunrise: Int?
-		var sunset: Int?
+		var id: Int
+		var name: String
+		var coord: Coord
+		var country: String
+		var timezone: Int
+		var sunrise: Int
+		var sunset: Int
 
 		private enum CodingKeys: String, CodingKey {
 			case id
@@ -56,26 +56,16 @@ extension WeatherForecast {
 			case sunset
 		}
 	}
-
-	struct Coordinates: Decodable {
-		var lat: Double?
-		var lon: Double?
-
-		private enum CodingKeys: String, CodingKey {
-			case lat
-			case lon
-		}
-	}
 }
 
 extension WeatherForecast {
 	struct List: Decodable {
 
-		var dt: Int?
-		var main: MainClass?
-		var weather: [ForeWeather]?
-		var clouds: ForeCloud?
-		var wind: ForeWind?
+		var dt: Int
+		var main: MainClass
+		var weather: [Weather]
+		var clouds: Clouds
+		var wind: Wind
 		var sys: ForeSys?
 		var dt_txt: String?
 
@@ -93,24 +83,24 @@ extension WeatherForecast {
 
 extension WeatherForecast.List {
 	struct MainClass: Decodable {
-		var temp: Double?
-		var temp_min: Double?
-		var temp_max: Double?
-		var pressure: Int?
+		var temp: Double
+		var tempMin: Double
+		var tempMax: Double
+		var pressure: Int
 		var sea_level: Int?
 		var grnd_level: Int?
-		var humidity: Int?
+		var humidity: Int
 		var temp_kf: Double?
 
 		private enum CodingKeys: String, CodingKey {
-			case temp        = "temp"
-			case temp_min    = "temp_min"
-			case temp_max    = "temp_max"
-			case pressure    = "pressure"
-			case sea_level   = "sea_level"
-			case grnd_level  = "grnd_level"
-			case humidity    = "humidity"
-			case temp_kf     = "temp_kf"
+			case temp = "temp"
+			case tempMin = "temp_min"
+			case tempMax = "temp_max"
+			case pressure = "pressure"
+			case sea_level = "sea_level"
+			case grnd_level = "grnd_level"
+			case humidity = "humidity"
+			case temp_kf = "temp_kf"
 		}
 	}
 
@@ -128,39 +118,6 @@ extension WeatherForecast.List {
 
 		private enum CodingKeys: String, CodingKey {
 			case sys
-		}
-	}
-
-	struct ForeWeather: Decodable{
-		var id: Int?
-		var main: String?
-		var description: String?
-		var icon: String?
-
-		private enum CodingKeys: String, CodingKey {
-			case id
-			case main
-			case description
-			case icon
-
-		}
-	}
-
-	struct ForeCloud: Decodable{
-		var all: Int?
-
-		private enum CodingKeys: String, CodingKey {
-			case all
-		}
-	}
-
-	struct ForeWind: Decodable{
-		var speed: Double?
-		var deg: Int?
-
-		private enum CodingKeys: String, CodingKey {
-			case speed
-			case deg
 		}
 	}
 

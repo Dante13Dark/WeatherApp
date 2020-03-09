@@ -44,7 +44,12 @@ extension FlowCoordinator: InteractorOutput {
 	}
 	
 	func received(currentWeather: CurrentWeather) {
-		startPresenter?.set(currentWeather: currentWeather)
+		startPresenter?.present(currentWeather: currentWeather)
+		router.set(loaderIsHidden: true)
+	}
+
+	func received(weatherForecast: WeatherForecast) {
+		startPresenter?.present(weatherForecast: weatherForecast)
 		router.set(loaderIsHidden: true)
 	}
 

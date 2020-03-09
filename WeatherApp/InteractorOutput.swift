@@ -10,6 +10,9 @@ protocol InteractorOutput: AnyObject {
 	/// Получена информация о текущей погоде.
 	func received(currentWeather: CurrentWeather)
 
+	/// Получена сводка о погоде.
+	func received(weatherForecast: WeatherForecast)
+
 	/// Получена ошибка.
 	func received(error: RequestServiceError)
 

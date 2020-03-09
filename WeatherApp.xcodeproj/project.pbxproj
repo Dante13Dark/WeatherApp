@@ -46,6 +46,8 @@
 		F3C7D675240F1BE700CBBE5C /* LocationServiceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7D674240F1BE700CBBE5C /* LocationServiceInput.swift */; };
 		F3C7D67D241067F000CBBE5C /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7D67C241067F000CBBE5C /* HeaderCell.swift */; };
 		F3CBD23F240850DB00EBFA18 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CBD23E240850DB00EBFA18 /* LoadingView.swift */; };
+		F3DA3ABA24158DF70087306A /* ScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3AB924158DF70087306A /* ScrollCell.swift */; };
+		F3DA3ABC2415900D0087306A /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3ABB2415900D0087306A /* ForecastCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,8 @@
 		F3C7D674240F1BE700CBBE5C /* LocationServiceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceInput.swift; sourceTree = "<group>"; };
 		F3C7D67C241067F000CBBE5C /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		F3CBD23E240850DB00EBFA18 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		F3DA3AB924158DF70087306A /* ScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollCell.swift; sourceTree = "<group>"; };
+		F3DA3ABB2415900D0087306A /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +302,8 @@
 				F37EFF9C241412B40067539D /* TableView.swift */,
 				F37EFF9E2414490B0067539D /* DetailCell.swift */,
 				F333DEE42414956500F37D7A /* TodayCell.swift */,
+				F3DA3AB924158DF70087306A /* ScrollCell.swift */,
+				F3DA3ABB2415900D0087306A /* ForecastCell.swift */,
 			);
 			name = FormItems;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3DA3ABA24158DF70087306A /* ScrollCell.swift in Sources */,
 				BA61C71F240803BC0099A5F7 /* RequestServiceProtocol.swift in Sources */,
 				BA61C7032407EBFA0099A5F7 /* StartViewController.swift in Sources */,
 				BA61C6F32407D4660099A5F7 /* FlowCoordinatorProtocol.swift in Sources */,
@@ -504,6 +511,7 @@
 				F383EA05240D935400A494AF /* DataServiceProtocol.swift in Sources */,
 				BA61C6FF2407E26C0099A5F7 /* StartViewOutput.swift in Sources */,
 				BA61C6FD2407E25A0099A5F7 /* StartViewInput.swift in Sources */,
+				F3DA3ABC2415900D0087306A /* ForecastCell.swift in Sources */,
 				F333DEE52414956500F37D7A /* TodayCell.swift in Sources */,
 				BA61C71A240801370099A5F7 /* InteractorOutput.swift in Sources */,
 				BA61C6BB2407B5050099A5F7 /* AppDelegate.swift in Sources */,

@@ -30,7 +30,12 @@ extension StartPresenter: StartViewOutput {
 
 // MARK: - StartPresenterInput
 extension StartPresenter: StartPresenterInput {
-	func set(currentWeather: CurrentWeather) {
+	func present(weatherForecast: WeatherForecast) {
+		let model = WeatherViewModel(weatherForecast: weatherForecast).items
+		view?.set(model: model)
+	}
+
+	func present(currentWeather: CurrentWeather) {
 		let model = WeatherViewModel(currentWeather: currentWeather).items
 		view?.set(city: currentWeather.name)
 		view?.set(model: model)
