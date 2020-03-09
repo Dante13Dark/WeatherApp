@@ -14,8 +14,11 @@ final class TableView: UITableView {
 			guard let items = model else {
 				return
 			}
-			self.items = items
-
+			if let items = items.first as? ScrollViewModelItem {
+				self.items.append(items)
+			} else {
+				self.items = items
+			}
 			DispatchQueue.main.async {
 				self.reloadData()
 			}

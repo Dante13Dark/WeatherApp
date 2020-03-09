@@ -49,7 +49,6 @@ final class ForecastCell: UICollectionViewCell {
 		let stack = UIStackView(arrangedSubviews: [date, time, icon, temp])
 		stack.axis = .vertical
 		stack.alignment = .center
-		stack.spacing = 5.0
 		return stack
 	}()
 
