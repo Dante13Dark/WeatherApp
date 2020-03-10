@@ -67,7 +67,6 @@ extension Interactor: InteractorInput {
 			guard let self = self else { return }
 			switch response {
 			case let .success(result):
-				print("MODEL: \(result)")
 				self.output?.received(model: result)
 			case let .failure(error):
 				self.output?.received(error: error)

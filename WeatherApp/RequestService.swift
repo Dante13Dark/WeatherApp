@@ -18,7 +18,6 @@ final class RequestService: RequestServiceProtocol {
 			responseHandler(.failure(.badURL))
 			return
 		}
-		print("URL: \(url)")
 
 		URLSession.shared.dataTask(with: url) { (data, response, err) in
 
@@ -27,7 +26,6 @@ final class RequestService: RequestServiceProtocol {
 				return
 			}
 			do {
-				print("JSON RESPONSE: \(String(data: data, encoding: .utf8)!)")
 				let obj = try JSONDecoder().decode(ResultType.self, from: data)
 				responseHandler(.success(obj))
 			} catch let error as ServerError {
