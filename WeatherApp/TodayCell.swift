@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Ячейка информации о погоде на сегодня
 final class TodayCell: UITableViewCell {
 
 	var item: WeatherViewModelItem? {

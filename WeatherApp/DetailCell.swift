@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Ячейка дополнительной информации о погоде
 final class DetailCell: UITableViewCell {
 
 	var item: WeatherViewModelItem? {

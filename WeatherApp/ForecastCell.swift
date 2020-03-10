@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Ячейка с информацией о погоде на 3 часа
 final class ForecastCell: UICollectionViewCell {
 
 	var item: ForecastViewModelItem? {

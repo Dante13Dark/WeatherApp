@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// Лоадер
 final class Loader {
 
 	var blurImg = UIImageView()

@@ -8,8 +8,12 @@
 /// Управляющий протокол view стартового экрана.
 protocol StartViewInput: AnyObject {
 	/// Установить заголовок
+	///
+	/// - Parameter city: Название местности
 	func set(city: String)
-	/// Установить модель
+	/// Установить модель погоды
+	///
+	/// - Parameter model: Модель погоды
 	func set(model: [WeatherViewModelItem])
 	/// Установить видимость лоадера
 	/// - Parameter loaderIsHidden: Состояние лоадера: если true, то скрыт.

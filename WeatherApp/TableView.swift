@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Таблица с информацией о погоде
 final class TableView: UITableView {
 
 	var model: [WeatherViewModelItem]? {

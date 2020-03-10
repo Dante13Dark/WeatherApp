@@ -7,12 +7,14 @@
 
 import UIKit
 
+/// Стартовый ViewController
 class StartViewController: UIViewController {
 
 	let loader: LoaderProtocol = Loader()
 
 	lazy var tableView = TableView(frame: .zero, style: .grouped)
 
+	/// Стартовый презентер
 	var output: StartViewOutput
 	
 	init(output: StartViewOutput) {

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Ячейка со сводкой погоды на 5 дней
 final class ScrollCell: UITableViewCell {
 
 	var item: WeatherViewModelItem? {

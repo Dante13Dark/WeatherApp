@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Ячейка заголовка информации о погоде
 final class HeaderCell: UITableViewCell {
 
 	var item: WeatherViewModelItem? {
