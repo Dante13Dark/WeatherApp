@@ -17,7 +17,6 @@ final class TodayCell: UITableViewCell {
 
 			textLabel?.text = item.date
 			detailTextLabel?.text = "Макс. \(item.tempMax)" + "/" + "Мин. \(item.tempMin)"
-			imageView?.image = UIImage(named: item.iconName)
 		}
 	}
 

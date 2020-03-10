@@ -16,7 +16,6 @@ enum WeatherViewModelItemType {
 
 protocol WeatherViewModelItem {
 	var type: WeatherViewModelItemType { get }
-	var rowCount: Int { get }
 }
 
 extension String {
@@ -43,8 +42,7 @@ class WeatherViewModel: NSObject {
 													  timezone: currentWeather.timezone,
 													  format: "dd MMMM"),
 									   tempMin: makeTemp(temp: currentWeather.main.tempMin),
-									   tempMax: makeTemp(temp: currentWeather.main.tempMax),
-									   iconName: currentWeather.weather.first?.icon ?? "")
+									   tempMax: makeTemp(temp: currentWeather.main.tempMax))
 		items.append(today)
 		let detailItems = makeDetailItems(currentWeather: currentWeather)
 		detailItems.forEach { (arg0) in
@@ -163,10 +161,6 @@ struct HeaderViewModelItem: WeatherViewModelItem {
 		return .header
 	}
 
-	var rowCount: Int {
-		return 1
-	}
-
 	var temp: String
 	var feelsLike: String
 	var desc: String
@@ -186,30 +180,20 @@ struct TodayViewModelItem: WeatherViewModelItem {
 		return .today
 	}
 
-	var rowCount: Int {
-		return 1
-	}
-
 	var date: String
 	var tempMin: String
 	var tempMax: String
-	var iconName: String
 
-	init(date: String, tempMin: String, tempMax: String, iconName: String) {
+	init(date: String, tempMin: String, tempMax: String) {
 		self.date = date
 		self.tempMin = tempMin
 		self.tempMax = tempMax
-		self.iconName = iconName
 	}
 }
 
 struct DetailsViewModelItem: WeatherViewModelItem {
 	var type: WeatherViewModelItemType {
 		return .detail
-	}
-
-	var rowCount: Int {
-		return 1
 	}
 
 	var title: String
@@ -239,10 +223,6 @@ struct ForecastViewModelItem {
 struct ScrollViewModelItem: WeatherViewModelItem {
 	var type: WeatherViewModelItemType {
 		return .forecast
-	}
-
-	var rowCount: Int {
-		return 1
 	}
 
 	var items: [ForecastViewModelItem]

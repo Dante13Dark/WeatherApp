@@ -90,7 +90,7 @@ class StartPresenterTests: XCTestCase {
 			return
 		}
 		XCTAssertEqual(scrollModel.items.count, expectedCount)
-		if (items.count == expectedCount) {
+		if (scrollModel.items.count == expectedCount) {
 			items.forEach { (item) in
 				XCTAssertEqual(item.type, .forecast)
 			}
