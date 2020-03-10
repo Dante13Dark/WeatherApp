@@ -14,8 +14,9 @@ final class TableView: UITableView {
 			guard let items = model else {
 				return
 			}
-			if let items = items.first as? ScrollViewModelItem, self.items.count > 1 {
-				self.items.insert(items, at: 2)
+			if (items.filter { $0 is ScrollViewModelItem }.count) != 0,
+				self.items.count > 1 {
+				self.items.insert(contentsOf: items, at: 2)
 			} else {
 				self.items = items
 			}

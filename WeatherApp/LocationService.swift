@@ -26,9 +26,9 @@ final class LocationService: NSObject {
 
 extension LocationService: LocationServiceInput {
 	func getCoord() {
+		needUpdate = true
 		if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
 			print("DELEGATE REQUEST LOCATION")
-			needUpdate = true
 			locationManager.requestLocation()
 		}
 	}
@@ -37,6 +37,9 @@ extension LocationService: CLLocationManagerDelegate {
 
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 		print("location manager authorization status changed to \(status.rawValue)")
+		if needUpdate {
+			locationManager.requestLocation()
+		}
 	}
 
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
