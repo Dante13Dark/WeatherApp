@@ -7,6 +7,8 @@
 
 /// Протокол обработчика данных приходящих от интерактора 
 protocol InteractorOutput: AnyObject {
+	/// Получена модель
+	func received<T: Decodable>(model: T)
 	/// Получена информация о текущей погоде.
 	func received(currentWeather: CurrentWeather)
 

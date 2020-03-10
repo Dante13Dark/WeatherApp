@@ -5,6 +5,7 @@
 //  Created by Yaroslav Tutushkin on 25.02.2020.
 //  Copyright © 2020 Yaroslav Tutushkin. All rights reserved.
 //
+
 enum Model: Equatable {
 	case currentWeather(CurrentWeather)
 	case weatherForecast(WeatherForecast)

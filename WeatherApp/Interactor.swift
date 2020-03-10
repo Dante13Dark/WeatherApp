@@ -24,6 +24,13 @@ final class Interactor {
 	}
 }
 
+// MARK: - LocationServiceOutput
+extension Interactor: LocationServiceOutput {
+	func didUpdate(coord: Coord) {
+		requestInfo(coord: coord)
+	}
+}
+
 // MARK: - InteractorInput
 extension Interactor: InteractorInput {
 
@@ -32,8 +39,40 @@ extension Interactor: InteractorInput {
 	}
 
 	func requestInfo(coord: Coord) {
-		getCurrentWeather(url: makeUrl(coord: coord, type: .weather))
-		getWeatherForecast(url: makeUrl(coord: coord, type: .forecast))
+		getWeather(coord: coord, type: RequestType<CurrentWeather>())
+		getWeather(coord: coord, type: RequestType<WeatherForecast>())
+	}
+
+	private enum RequestType<T> {
+		case current
+		case forecast
+		case unknown
+
+		init() {
+			switch T.self {
+			case is CurrentWeather.Type:
+				self = .current
+			case is WeatherForecast.Type:
+				self = .forecast
+			default:
+				self = .unknown
+			}
+		}
+	}
+
+	private func getWeather<T: Decodable>(coord: Coord, type: RequestType<T>) {
+		let url = makeUrl(coord: coord, type: type)
+
+		requestService.run(url: url) { [weak self] (response: Result<T,RequestServiceError>) in
+			guard let self = self else { return }
+			switch response {
+			case let .success(result):
+				print("MODEL: \(result)")
+				self.output?.received(model: result)
+			case let .failure(error):
+				self.output?.received(error: error)
+			}
+		}
 	}
 
 	private enum APIConstants: String {
@@ -41,49 +80,14 @@ extension Interactor: InteractorInput {
 		case url = "https://api.openweathermap.org/data/2.5/"
 	}
 
-	private enum RequestType: String {
-		case weather = "weather?"
-		case forecast = "forecast?"
-	}
-
-	private func makeUrl(coord: Coord, type: RequestType) -> String {
+	private func makeUrl<T: Decodable>(coord: Coord, type: RequestType<T>) -> String {
 		switch (type) {
-		case .weather:
-			return "\(APIConstants.url.rawValue)\(RequestType.weather.rawValue)lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+		case .current:
+			return "\(APIConstants.url.rawValue)weather?lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
 		case .forecast:
-			return "\(APIConstants.url.rawValue)\(RequestType.forecast.rawValue)lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+			return "\(APIConstants.url.rawValue)forecast?lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+		case .unknown:
+			return ""
 		}
-	}
-
-	private func getCurrentWeather(url: String) {
-		requestService.run(url: url) { [weak self] (response: Result<CurrentWeather, RequestServiceError>) in
-			guard let self = self else { return }
-			switch response {
-			case let .success(result):
-				print("MODEL: \(result)")
-				self.output?.received(currentWeather: result)
-			case let .failure(error):
-				self.output?.received(error: error)
-			}
-		}
-	}
-
-	private func getWeatherForecast(url: String) {
-		requestService.run(url: url) { [weak self] (response: Result<WeatherForecast, RequestServiceError>) in
-			guard let self = self else { return }
-			switch response {
-			case let .success(result):
-				print("MODEL: \(result)")
-				self.output?.received(weatherForecast: result)
-			case let .failure(error):
-				self.output?.received(error: error)
-			}
-		}
-	}
-}
-
-extension Interactor: LocationServiceOutput {
-	func didUpdate(coord: Coord) {
-		requestInfo(coord: coord)
 	}
 }

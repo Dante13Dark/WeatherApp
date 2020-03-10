@@ -39,6 +39,14 @@ extension FlowCoordinator: StartPresenterOutput {
 
 // MARK: - InteractorOutput
 extension FlowCoordinator: InteractorOutput {
+	func received<T>(model: T) where T : Decodable {
+		if let model = model as? CurrentWeather {
+			startPresenter?.present(model: .responseModel(.currentWeather(model)))
+		} else if let model = model as? WeatherForecast {
+			startPresenter?.present(model: .responseModel(.weatherForecast(model)))
+		}
+	}
+
 	
 	func received(currentWeather: CurrentWeather) {
 		startPresenter?.present(model: .responseModel(.currentWeather(currentWeather)))
