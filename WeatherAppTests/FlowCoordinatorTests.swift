@@ -71,8 +71,9 @@ class FlowCoordinatorTests: XCTestCase {
 			XCTFail("Can't mock CurrentWeather")
 			return
 		}
+
 		// act
-		coordinator.received(currentWeather: currentWeather)
+		coordinator.received(model: currentWeather)
 
 		// assert
 		XCTAssertEqual(startPresenterInputSpy.presentedModel, PresentationModel.responseModel(.currentWeather(currentWeather)))
@@ -81,11 +82,12 @@ class FlowCoordinatorTests: XCTestCase {
 	func testReceivedWeatherForecast() {
 		// arrange
 		guard let weatherForecast = try? WeatherForecast(fileName: "2-weatherForecast") else {
-			XCTFail("Can't mock CurrentWeather")
+			XCTFail("Can't mock WeatherForecast")
 			return
 		}
+		
 		// act
-		coordinator.received(weatherForecast: weatherForecast)
+		coordinator.received(model: weatherForecast)
 
 		// assert
 		XCTAssertEqual(startPresenterInputSpy.presentedModel, PresentationModel.responseModel(.weatherForecast(weatherForecast)))

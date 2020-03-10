@@ -7,23 +7,22 @@
 
 @testable import WeatherApp
 
-final class InteractorOutputSpy {
+final class InteractorOutputSpy<T: Decodable> {
+	enum Call: Equatable {
+		case none
+		case error
+		case model
+	}
 
-	private(set) var error: RequestServiceError?
-	private(set) var currentWeather: CurrentWeather?
-	private(set) var weatherForecast: WeatherForecast?
+	private(set) var latestCall: Call = .none
 }
 
 extension InteractorOutputSpy: InteractorOutput {
-	func received(currentWeather: CurrentWeather) {
-		self.currentWeather = currentWeather
-	}
-
-	func received(weatherForecast: WeatherForecast) {
-		self.weatherForecast = weatherForecast
+	func received<T>(model: T) where T : Decodable {
+		latestCall = .model
 	}
 
 	func received(error: RequestServiceError) {
-		self.error = error
+		latestCall = .error
 	}
 }

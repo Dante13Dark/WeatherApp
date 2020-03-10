@@ -34,6 +34,9 @@
 		BA61C71F240803BC0099A5F7 /* RequestServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA61C71E240803BC0099A5F7 /* RequestServiceProtocol.swift */; };
 		F332FECB240C511A00FD771F /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = F332FECA240C511A00FD771F /* City.swift */; };
 		F333DEE52414956500F37D7A /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F333DEE42414956500F37D7A /* TodayCell.swift */; };
+		F3782B4E24181CFA0070E63E /* StartPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3782B4D24181CFA0070E63E /* StartPresenterTests.swift */; };
+		F3782B5024181D5D0070E63E /* StartViewInputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3782B4F24181D5D0070E63E /* StartViewInputSpy.swift */; };
+		F3782B5224181D720070E63E /* StartViewOutputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3782B5124181D720070E63E /* StartViewOutputSpy.swift */; };
 		F37EFF9F2414490B0067539D /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37EFF9E2414490B0067539D /* DetailCell.swift */; };
 		F37EFFA12414501E0067539D /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37EFFA02414501E0067539D /* WeatherModel.swift */; };
 		F383E9FE240D8EE600A494AF /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F383E9FD240D8EE600A494AF /* LocationService.swift */; };
@@ -113,6 +116,9 @@
 		BA61C71E240803BC0099A5F7 /* RequestServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServiceProtocol.swift; sourceTree = "<group>"; };
 		F332FECA240C511A00FD771F /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		F333DEE42414956500F37D7A /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
+		F3782B4D24181CFA0070E63E /* StartPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPresenterTests.swift; sourceTree = "<group>"; };
+		F3782B4F24181D5D0070E63E /* StartViewInputSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewInputSpy.swift; sourceTree = "<group>"; };
+		F3782B5124181D720070E63E /* StartViewOutputSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewOutputSpy.swift; sourceTree = "<group>"; };
 		F37EFF9E2414490B0067539D /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		F37EFFA02414501E0067539D /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		F383E9FD240D8EE600A494AF /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -322,6 +328,7 @@
 				F3C822AA2416C51C00115DA6 /* CurrentWeatherTests.swift */,
 				F3C822BB2416E27C00115DA6 /* WeatherForecastTests.swift */,
 				F3C822BD2416E5E100115DA6 /* InteractorTests.swift */,
+				F3782B4D24181CFA0070E63E /* StartPresenterTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -339,6 +346,8 @@
 				F3C822B12416DDCE00115DA6 /* StartPresenterOutputSpy.swift */,
 				F3C822BF2416E6A300115DA6 /* LocationServiceInputSpy.swift */,
 				F3C822C12416E76B00115DA6 /* RequestServiceProtocolSpy.swift */,
+				F3782B4F24181D5D0070E63E /* StartViewInputSpy.swift */,
+				F3782B5124181D720070E63E /* StartViewOutputSpy.swift */,
 			);
 			name = MockAndSpy;
 			sourceTree = "<group>";
@@ -577,8 +586,11 @@
 				F3C822A32416BEA000115DA6 /* FlowCoordinatorTests.swift in Sources */,
 				F3C822AB2416C51C00115DA6 /* CurrentWeatherTests.swift in Sources */,
 				F3C822BC2416E27C00115DA6 /* WeatherForecastTests.swift in Sources */,
+				F3782B4E24181CFA0070E63E /* StartPresenterTests.swift in Sources */,
+				F3782B5024181D5D0070E63E /* StartViewInputSpy.swift in Sources */,
 				F3C822C22416E76B00115DA6 /* RequestServiceProtocolSpy.swift in Sources */,
 				F3C822B22416DDCE00115DA6 /* StartPresenterOutputSpy.swift in Sources */,
+				F3782B5224181D720070E63E /* StartViewOutputSpy.swift in Sources */,
 				F3C8229F2416B15A00115DA6 /* InteractorOutputSpy.swift in Sources */,
 				BA61C6D32407B5070099A5F7 /* WeatherAppTests.swift in Sources */,
 				F3C822992416A92400115DA6 /* RouterInputSpy.swift in Sources */,

@@ -47,15 +47,6 @@ extension FlowCoordinator: InteractorOutput {
 		}
 	}
 
-	
-	func received(currentWeather: CurrentWeather) {
-		startPresenter?.present(model: .responseModel(.currentWeather(currentWeather)))
-	}
-
-	func received(weatherForecast: WeatherForecast) {
-		startPresenter?.present(model: .responseModel(.weatherForecast(weatherForecast)))
-	}
-
 	func received(error: RequestServiceError) {
 		startPresenter?.present(model: .loader(loaderIsHidden: true))
 		router.showErrorResponse(error)
