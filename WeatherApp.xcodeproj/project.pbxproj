@@ -202,7 +202,6 @@
 				BA61C70F2407FC4A0099A5F7 /* Model */,
 				F3CBD24324085C2C00EBFA18 /* Presenters */,
 				F3CBD24424085C5000EBFA18 /* ViewControllers */,
-				F3CBD23E240850DB00EBFA18 /* LoadingView.swift */,
 				BA61C70C2407F6170099A5F7 /* Other sources */,
 			);
 			path = WeatherApp;
@@ -405,6 +404,7 @@
 		F3CBD24424085C5000EBFA18 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F3CBD23E240850DB00EBFA18 /* LoadingView.swift */,
 				F3C7D6772410641E00CBBE5C /* FormItems */,
 				F332FECC240C5AA200FD771F /* StartViewController */,
 			);
