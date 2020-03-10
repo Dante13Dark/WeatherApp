@@ -8,13 +8,13 @@
 import Foundation
 import CoreData
 
-/// Интерактор
+/// Интерактор процесса
 final class Interactor {
-
+	/// Обработчик данных от интерактора.
 	weak var output: InteractorOutput?
-
+	/// Сетевой сервис
 	private let requestService: RequestServiceProtocol
-
+	/// Сервис локации
 	private let locationService: LocationServiceInput
 
 	init(requestService: RequestServiceProtocol,
@@ -78,14 +78,21 @@ extension Interactor: InteractorInput {
 	private enum APIConstants: String {
 		case apiKey = "&appid=cfeae8c84fe84eba49d6279199a24b24"
 		case url = "https://api.openweathermap.org/data/2.5/"
+		case additional = "&units=metric&lang=ru"
 	}
 
 	private func makeUrl<T: Decodable>(coord: Coord, type: RequestType<T>) -> String {
 		switch (type) {
 		case .current:
-			return "\(APIConstants.url.rawValue)weather?lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+			return """
+			\(APIConstants.url.rawValue)weather?lat=\(String(coord.lat))&lon=\(String(coord.lon))\
+			\(APIConstants.apiKey.rawValue)\(APIConstants.additional.rawValue)
+			"""
 		case .forecast:
-			return "\(APIConstants.url.rawValue)forecast?lat=\(String(coord.lat))&lon=\(String(coord.lon))&units=metric\(APIConstants.apiKey.rawValue)&lang=ru"
+			return """
+			\(APIConstants.url.rawValue)forecast?lat=\(String(coord.lat))&lon=\(String(coord.lon))\
+			\(APIConstants.apiKey.rawValue)\(APIConstants.additional.rawValue)
+			"""
 		case .unknown:
 			return ""
 		}

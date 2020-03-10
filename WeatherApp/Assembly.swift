@@ -9,6 +9,8 @@ import UIKit
 import Foundation
 import CoreLocation
 
+/// Сборщик процесса.
+/// Используется для запуска процесса. Конструирует и агрегирует объекты необходимые для процесса.
 final class Assembly: NSObject {
 
 	var window: UIWindow?
@@ -17,6 +19,7 @@ final class Assembly: NSObject {
 		return coordinator
 	}
 
+	/// Сервис локации
 	let locationService = LocationService()
 
 	// Объект координатора.
@@ -45,6 +48,10 @@ final class Assembly: NSObject {
 		super.init()
 	}
 
+
+	/// Создать стартовый экран
+	///
+	/// - Returns: Стартовый View Controller
 	func makeStartScreen() -> UIViewController {
 		let presenter = StartPresenter(output: coordinator)
 		coordinator.startPresenter = presenter

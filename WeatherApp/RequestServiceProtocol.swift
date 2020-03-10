@@ -26,11 +26,20 @@ enum RequestServiceError: Error {
 	}
 }
 
+/// Ошибка пришедшая с сервера
 struct ServerError: Error {
+	/// Сообщение ошибки
 	var message: String
 }
 
+
+/// Протокол сервиса выполнения запроса
 protocol RequestServiceProtocol {
+	/// Запустить выполнение запроса по указанному адресу
+	///
+	/// - Parameters:
+	///   - url: Адрес
+	///   - responseHandler: Обработчик результата запроса
 	func run<ResultType: Decodable>(url: String,
 									responseHandler: @escaping (Result<ResultType, RequestServiceError>) -> Void)
 }

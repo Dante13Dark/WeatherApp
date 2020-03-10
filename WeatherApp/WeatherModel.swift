@@ -7,6 +7,12 @@
 
 import UIKit
 
+/// Типы элементов модели погоды
+///
+/// - header: Заголовок погоды
+/// - detail: Детали погоды
+/// - today: Погода сегодня
+/// - forecast: Сводка погоды
 enum WeatherViewModelItemType {
 	case header
 	case detail
@@ -14,21 +20,14 @@ enum WeatherViewModelItemType {
 	case forecast
 }
 
+/// Протокол элемента модели погоды
 protocol WeatherViewModelItem {
 	var type: WeatherViewModelItemType { get }
 }
 
-extension String {
-	func capitalizingFirstLetter() -> String {
-		return prefix(1).capitalized + dropFirst()
-	}
-
-	mutating func capitalizeFirstLetter() {
-		self = self.capitalizingFirstLetter()
-	}
-}
-
+/// Модель отображения погоды
 class WeatherViewModel: NSObject {
+	/// Айтемы погоды
 	var items = [WeatherViewModelItem]()
 
 	init(currentWeather: CurrentWeather){
@@ -156,6 +155,7 @@ class WeatherViewModel: NSObject {
 	}
 }
 
+/// Заголовочный элемент модели погоды
 struct HeaderViewModelItem: WeatherViewModelItem {
 	var type: WeatherViewModelItemType {
 		return .header
@@ -175,6 +175,7 @@ struct HeaderViewModelItem: WeatherViewModelItem {
 	}
 }
 
+/// Элемент погоды на сегодня модели погоды
 struct TodayViewModelItem: WeatherViewModelItem {
 	var type: WeatherViewModelItemType {
 		return .today
@@ -191,6 +192,7 @@ struct TodayViewModelItem: WeatherViewModelItem {
 	}
 }
 
+/// Элемент дополнительной информации о погоди модели погоды
 struct DetailsViewModelItem: WeatherViewModelItem {
 	var type: WeatherViewModelItemType {
 		return .detail
@@ -205,6 +207,7 @@ struct DetailsViewModelItem: WeatherViewModelItem {
 	}
 }
 
+/// Сводка погоды на каждые 3 часа
 struct ForecastViewModelItem {
 
 	var date: String
@@ -220,6 +223,7 @@ struct ForecastViewModelItem {
 	}
 }
 
+/// Элемент модели погоды хранящий в себе сводку погоды на 5 дней
 struct ScrollViewModelItem: WeatherViewModelItem {
 	var type: WeatherViewModelItemType {
 		return .forecast

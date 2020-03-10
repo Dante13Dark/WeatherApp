@@ -7,9 +7,10 @@
 
 import UIKit
 
+/// Роутер процесса
 final class Router {
 
-	var assembly: Assembly
+	private var assembly: Assembly
 
 	init(assembly: Assembly) {
 		self.assembly = assembly

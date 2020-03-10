@@ -9,12 +9,15 @@
 import Foundation
 
 
+/// Сводка данных о погоде 5 дней / 3 часа
 struct WeatherForecast: Decodable, Equatable {
 	var cod: String
 	var messageString: String = ""
 	var message: Int
 	var cnt: Int?
+	/// Массив данных о погоде
 	var list: [List]
+	/// Данные о местности
 	var city: City
 
 	private enum CodingKeys: String, CodingKey {

@@ -7,13 +7,13 @@
 
 import CoreLocation
 
+/// Сервис геолокации
 final class LocationService: NSObject {
-
+	/// Внутренний параметр, нужный для запроса данных по требованию
 	private var needUpdate: Bool = false
-	// MARK: Location
-
+	/// Менеджер локации
 	let locationManager = CLLocationManager()
-
+	/// Обработчик данных от сервиса геолокации
 	weak var output: LocationServiceOutput?
 
 	override init() {

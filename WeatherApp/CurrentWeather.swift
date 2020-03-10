@@ -11,21 +11,33 @@ enum Model: Equatable {
 	case weatherForecast(WeatherForecast)
 }
 
+/// Информация о текущей погоде
 struct CurrentWeather: Decodable, Equatable {
 
+	/// Координаты
 	var coord: Coord
+	/// Данные погоды
 	var weather: [Weather]
 	var base: String?
+	/// Основные сведения
 	var main: Main
+	/// Видимость
 	var visibility: Int
+	/// Ветер
 	var wind: Wind
+	/// Облака
 	var clouds: Clouds
+	/// Дата и время
 	var dt: Int
 	var sys: Sys
+	/// Таймзона
 	var timezone: Int
+	/// ID местности
 	var id: Int
+	/// Название местности
 	var name: String
 	var cod: Int
+	/// Сообщение о ошибке
 	var message: String = ""
 
 	private enum CodingKeys: String, CodingKey {
@@ -48,12 +60,12 @@ struct CurrentWeather: Decodable, Equatable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		cod = try container.decode(Int.self, forKey: .cod)
-
 		if container.contains(.message) {
+			cod = try container.decode(Int.self, forKey: .cod)
 			message = try container.decode(String.self, forKey: .message)
 			throw ServerError(message: message)
 		} else {
+			cod = try container.decode(Int.self, forKey: .cod)
 			coord = try container.decode(Coord.self, forKey: .coord)
 			weather = try container.decode([Weather].self, forKey: .weather)
 			base = try? container.decode(String.self, forKey: .base)

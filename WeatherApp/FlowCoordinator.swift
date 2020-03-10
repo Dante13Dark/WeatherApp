@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Координатор процесса
 final class FlowCoordinator {
 	// Презентер стартового экрана
 	weak var startPresenter: StartPresenterInput?
@@ -20,6 +21,8 @@ final class FlowCoordinator {
 		self.router = router
 	}
 }
+
+// MARK: - FlowCoordinatorProtocol
 
 extension FlowCoordinator: FlowCoordinatorProtocol {
 	func start() {

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Сетевой сервис
 final class RequestService: RequestServiceProtocol {
 
 	func run<ResultType: Decodable>(
@@ -36,13 +37,4 @@ final class RequestService: RequestServiceProtocol {
 			}
 			}.resume()
 	}
-
-	func getCities() -> [City] {
-		guard let path = Bundle.main.path(forResource: "city.list", ofType: "json") else { return [] }
-		let fileUrl = URL(fileURLWithPath: path)
-		guard let data = try? Data(contentsOf: fileUrl, options: .mappedIfSafe) else { return [] }
-		guard let parsedResult: [City] = try? JSONDecoder().decode([City].self, from: data) else { return [] }
-		return parsedResult
-	}
-
 }
