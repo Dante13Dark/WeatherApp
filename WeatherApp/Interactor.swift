@@ -43,25 +43,8 @@ extension Interactor: InteractorInput {
 		getWeather(coord: coord, type: RequestType<WeatherForecast>())
 	}
 
-	private enum RequestType<T> {
-		case current
-		case forecast
-		case unknown
-
-		init() {
-			switch T.self {
-			case is CurrentWeather.Type:
-				self = .current
-			case is WeatherForecast.Type:
-				self = .forecast
-			default:
-				self = .unknown
-			}
-		}
-	}
-
 	private func getWeather<T: Decodable>(coord: Coord, type: RequestType<T>) {
-		let url = makeUrl(coord: coord, type: type)
+		let url = APIConstants.url(type: type.rawValue, coord: coord)
 
 		requestService.run(url: url) { [weak self] (response: Result<T,RequestServiceError>) in
 			guard let self = self else { return }
@@ -74,26 +57,35 @@ extension Interactor: InteractorInput {
 		}
 	}
 
-	private enum APIConstants: String {
-		case apiKey = "&appid=cfeae8c84fe84eba49d6279199a24b24"
-		case url = "https://api.openweathermap.org/data/2.5/"
-		case additional = "&units=metric&lang=ru"
-	}
+	private enum RequestType<T>: String {
+		case weather
+		case forecast
+		case unknown
 
-	private func makeUrl<T: Decodable>(coord: Coord, type: RequestType<T>) -> String {
-		switch (type) {
-		case .current:
-			return """
-			\(APIConstants.url.rawValue)weather?lat=\(String(coord.lat))&lon=\(String(coord.lon))\
-			\(APIConstants.apiKey.rawValue)\(APIConstants.additional.rawValue)
-			"""
-		case .forecast:
-			return """
-			\(APIConstants.url.rawValue)forecast?lat=\(String(coord.lat))&lon=\(String(coord.lon))\
-			\(APIConstants.apiKey.rawValue)\(APIConstants.additional.rawValue)
-			"""
-		case .unknown:
-			return ""
+		init() {
+			switch T.self {
+			case is CurrentWeather.Type:
+				self = .weather
+			case is WeatherForecast.Type:
+				self = .forecast
+			default:
+				self = .unknown
+			}
 		}
+	}
+}
+
+private struct APIConstants {
+	private static let apiKey = "&appid=cfeae8c84fe84eba49d6279199a24b24"
+	private static let urlAddress = "https://api.openweathermap.org/data/2.5/"
+	private static let additional = "&units=metric&lang=ru"
+	private static func stringCoord(coord: Coord) -> String {
+		return "?lat=\(String(coord.lat))&lon=\(String(coord.lon))"
+	}
+	static func url(type: String, coord: Coord) -> String {
+		return """
+		\(APIConstants.urlAddress)\(type)\(APIConstants.stringCoord(coord: coord))\
+		\(APIConstants.apiKey)\(APIConstants.additional)
+		"""
 	}
 }
