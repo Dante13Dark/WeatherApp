@@ -73,7 +73,7 @@ class WeatherViewModel: NSObject {
 		}
 	}
 
-	private enum WindDirection: String {
+	private enum WindDirection: String, CaseIterable {
 		case north = "С"
 		case northWest = "СЗ"
 		case west = "З"
@@ -83,28 +83,17 @@ class WeatherViewModel: NSObject {
 		case east = "В"
 		case northEast = "СВ"
 
-		var range: CountableClosedRange<Int> {
-			switch self {
-			case .northWest: return 23...67
-			case .west: return 68...112
-			case .southWest: return 113...157
-			case .south: return 158...202
-			case .southEast: return 203...247
-			case .east: return 248...292
-			case .northEast: return 293...337
-			case .north: return 0...360
-			}
-		}
-
 		init(_ degree: Int) {
-			switch (degree) {
-			case WindDirection.northWest.range: self = .northWest
-			case WindDirection.west.range: self = .west
-			case WindDirection.southWest.range: self = .southWest
-			case WindDirection.south.range: self = .south
-			case WindDirection.southEast.range: self = .southEast
-			case WindDirection.east.range: self = .east
-			case WindDirection.northEast.range: self = .northEast
+			let x = 360/Double(WindDirection.allCases.count)/2
+			let y = Double(degree)
+			switch (y) {
+			case x..<3*x: self = .northWest
+			case 3*x..<5*x: self = .west
+			case 5*x..<7*x: self = .southWest
+			case 7*x..<9*x: self = .south
+			case 9*x..<11*x: self = .southEast
+			case 11*x..<13*x: self = .east
+			case 13*x..<15*x: self = .northEast
 			default: self = .north
 			}
 		}
