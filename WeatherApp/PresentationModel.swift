@@ -12,3 +12,9 @@ enum PresentationModel<ResponseModelType: Equatable>: Equatable {
 	/// Получили данные
 	case responseModel(ResponseModelType)
 }
+
+/// Модель данных погоды
+enum Model: Equatable {
+	case currentWeather(CurrentWeather)
+	case weatherForecast(WeatherForecast)
+}

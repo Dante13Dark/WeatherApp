@@ -59,6 +59,7 @@
 		F3C822BE2416E5E100115DA6 /* InteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822BD2416E5E100115DA6 /* InteractorTests.swift */; };
 		F3C822C02416E6A300115DA6 /* LocationServiceInputSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822BF2416E6A300115DA6 /* LocationServiceInputSpy.swift */; };
 		F3C822C22416E76B00115DA6 /* RequestServiceProtocolSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C822C12416E76B00115DA6 /* RequestServiceProtocolSpy.swift */; };
+		F3CA875E24197C8A00BEF0DD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F3CA875D24197C8A00BEF0DD /* README.md */; };
 		F3CBD23F240850DB00EBFA18 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CBD23E240850DB00EBFA18 /* LoadingView.swift */; };
 		F3DA3ABA24158DF70087306A /* ScrollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3AB924158DF70087306A /* ScrollCell.swift */; };
 		F3DA3ABC2415900D0087306A /* ForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3ABB2415900D0087306A /* ForecastCell.swift */; };
@@ -132,6 +133,7 @@
 		F3C822BD2416E5E100115DA6 /* InteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorTests.swift; sourceTree = "<group>"; };
 		F3C822BF2416E6A300115DA6 /* LocationServiceInputSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceInputSpy.swift; sourceTree = "<group>"; };
 		F3C822C12416E76B00115DA6 /* RequestServiceProtocolSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServiceProtocolSpy.swift; sourceTree = "<group>"; };
+		F3CA875D24197C8A00BEF0DD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F3CBD23E240850DB00EBFA18 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F3DA3AB924158DF70087306A /* ScrollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollCell.swift; sourceTree = "<group>"; };
 		F3DA3ABB2415900D0087306A /* ForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCell.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		BA61C6AE2407B5050099A5F7 = {
 			isa = PBXGroup;
 			children = (
+				F3CA875D24197C8A00BEF0DD /* README.md */,
 				BA61C6B92407B5050099A5F7 /* WeatherApp */,
 				BA61C6D12407B5070099A5F7 /* WeatherAppTests */,
 				BA61C6B82407B5050099A5F7 /* Products */,
@@ -464,6 +467,7 @@
 			files = (
 				BA61C70B2407F5EE0099A5F7 /* Main.storyboard in Resources */,
 				BA61C6C52407B5070099A5F7 /* Assets.xcassets in Resources */,
+				F3CA875E24197C8A00BEF0DD /* README.md in Resources */,
 				BA61C70A2407F5EE0099A5F7 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,10 +6,8 @@
 //  Copyright © 2020 Yaroslav Tutushkin. All rights reserved.
 //
 
-enum Model: Equatable {
-	case currentWeather(CurrentWeather)
-	case weatherForecast(WeatherForecast)
-}
+import Foundation
+
 
 /// Информация о текущей погоде
 struct CurrentWeather: Decodable, Equatable {
